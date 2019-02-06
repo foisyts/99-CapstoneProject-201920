@@ -43,6 +43,7 @@ class DriveSystem(object):
     Controls the robot's motion via GO and STOP methods,
         along with various methods that GO/STOP under control of a sensor.
     """
+
     # -------------------------------------------------------------------------
     # NOTE:
     #   Throughout, when going straight:
@@ -167,12 +168,12 @@ class DriveSystem(object):
     # -------------------------------------------------------------------------
 
 
-
 ###############################################################################
 #    ArmAndClaw
 ###############################################################################
 class ArmAndClaw(object):
     """ Controls the robot's arm and claw (which operate together). """
+
     # -------------------------------------------------------------------------
     # NOTE:
     #   A POSITIVE speed for the ArmAndClaw's motor moves the arm UP.
@@ -192,6 +193,11 @@ class ArmAndClaw(object):
 
     def raise_arm(self):
         """ Raises the Arm until its touch sensor is pressed. """
+        self.motor.turn_on(100)
+        while True:
+            if self.touch_sensor.is_pressed():
+                self.motor.turn_off()
+                break
 
     def calibrate_arm(self):
         """
@@ -202,7 +208,8 @@ class ArmAndClaw(object):
                (i.e., 14.2 motor revolutions),
           3. Resets the motor's position to 0.
         """
-
+        self.raise_arm()
+        self.motor
     def move_arm_to_position(self, desired_arm_position):
         """
         Move its Arm to the given position, where 0 means all the way DOWN.
@@ -215,6 +222,7 @@ class ArmAndClaw(object):
         The robot must have previously calibrated its Arm.
         """
 
+
 ###############################################################################
 #    SensorSystem
 ###############################################################################
@@ -224,6 +232,7 @@ class SensorSystem(object):
     the Button objects that form part of the BeaconSystem and DisplaySystem.
     Use this object to get   ** any **   sensor reading.
     """
+
     def __init__(self):
         self.touch_sensor = TouchSensor(1)
         # These need the port numbers
@@ -245,6 +254,7 @@ class SoundSystem(object):
     Has all the kinds of "noise makers" available to the Snatch3r robot.
     Use this object to make   ** any **   sounds.
     """
+
     def __init__(self, beeper, tone_maker, speech_maker, song_maker):
         self.beeper = beeper
         self.tone_maker = tone_maker
@@ -265,6 +275,7 @@ class LEDSystem(object):
     """
     Has the left and right LEDs on the Brick.
     """
+
     def __init__(self):
         """ Constructs and stores the left and right LED objects. """
         self.left_led = LED()
@@ -275,6 +286,7 @@ class LEDSystem(object):
 
     def only_left_on(self):
         """ Turns the left LED on and the right LED off """
+
 
 ###############################################################################
 #    BeaconSystem
@@ -368,7 +380,7 @@ class InfraredProximitySensor(object):
 
 
 class InfraredBeaconSensor(object):
-    def __init__(self, port):   # port must be 1, 2, 3 or 4
+    def __init__(self, port):  # port must be 1, 2, 3 or 4
         self._ir_sensor = ev3.InfraredSensor('in' + str(port))
 
     def get_distance(self):
