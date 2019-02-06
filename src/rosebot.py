@@ -244,6 +244,7 @@ class ArmAndClaw(object):
         Lowers the Arm until it is all the way down, i.e., position 0.
         The robot must have previously calibrated its Arm.
         """
+        self.move_arm_to_position(0)
 
 
 ###############################################################################
