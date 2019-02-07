@@ -15,3 +15,6 @@ class DelegateThatReceives(object):
 
     def forward(self, left_wheel_speed, right_wheel_speed):
         self.robot.drive_system.go(int(left_wheel_speed), int(right_wheel_speed))
+
+    def stop(self):
+        self.robot.drive_system.stop()
