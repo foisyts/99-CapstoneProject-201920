@@ -13,24 +13,33 @@ class DelegateThatReceives(object):
         """:type robot: rosebot.RoseBot """
         self.robot = robot
 
+    # Teleop
     def forward(self, left_wheel_speed, right_wheel_speed):
         self.robot.drive_system.go(int(left_wheel_speed), int(right_wheel_speed))
+
+    def backward(self, left_wheel_speed, right_wheel_speed):
+        self.robot.drive_system.go(-int(left_wheel_speed), -int(right_wheel_speed))
+
+    def left(self, left_wheel_speed, right_wheel_speed):
+        self.robot.drive_system.go(-int(left_wheel_speed), int(right_wheel_speed))
+
+    def right(self, left_wheel_speed, right_wheel_speed):
+        self.robot.drive_system.go(int(left_wheel_speed), -int(right_wheel_speed))
 
     def stop(self):
         self.robot.drive_system.stop()
 
-
+    # Arm and Claw
     def raise_arm(self):
         self.robot.arm_and_claw.raise_arm()
-
 
     def lower_arm(self):
         self.robot.arm_and_claw.lower_arm()
 
-
     def calibrate_arm(self):
         self.robot.arm_and_claw.calibrate_arm()
 
-
     def move_arm_to(self, position):
         self.robot.arm_and_claw.move_arm_to_position(int(position))
+
+    # Control Frame
