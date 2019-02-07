@@ -88,6 +88,15 @@ class DriveSystem(object):
         Makes the robot go straight (forward if speed > 0, else backward)
         at the given speed for the given number of seconds.
         """
+        initial_time = time.time()
+        self.left_motor.turn_on(speed)
+        self.right_motor.turn_on(speed)
+        while True:
+            if time.time() - initial_time >= seconds:
+                self.left_motor.turn_off()
+                self.right_motor.turn_off()
+                break
+
 
     def go_straight_for_inches_using_time(self, inches, speed):
         """
@@ -95,6 +104,10 @@ class DriveSystem(object):
         for the given number of inches, using the approximate
         conversion factor of 10.0 inches per second at 100 (full) speed.
         """
+        seconds_per_inch_at_100 = 10.0  # 1 sec = 10 inches at 100 speed
+        seconds = abs(inches * seconds_per_inch_at_100 / speed)
+
+        self.go_straight_for_seconds(seconds, speed)
 
     def go_straight_for_inches_using_encoder(self, inches, speed):
         """
@@ -102,6 +115,15 @@ class DriveSystem(object):
         at the given speed for the given number of inches,
         using the encoder (degrees traveled sensor) built into the motors.
         """
+        inches_per_degree = self.left_motor.WheelCircumference / 360
+        desired_degrees = inches / inches_per_degree
+        self.left_motor.reset_position()
+        self.go(speed, speed)
+        while True:
+            angular_position = abs(self.left_motor.get_position())
+            if desired_degrees <= angular_position:
+                self.stop()
+                break
 
     # -------------------------------------------------------------------------
     # Methods for driving that use the color sensor.
@@ -349,7 +371,7 @@ class LEDSystem(object):
 ###############################################################################
 ###############################################################################
 class Motor(object):
-
+    WheelCircumference = 1.3 * math.pi
     def __init__(self, port, motor_type='large'):
         # port must be 'A', 'B', 'C', or 'D'.  Use 'arm' as motor_type for Arm.
         if motor_type == 'large':
