@@ -18,6 +18,16 @@ def main():
     """
 
 
+def real_thing():
+    robot = rosebot.RoseBot()
+    delegate_that_receives = DelegateThatReceives(robot)
+    mqtt_receiver = com.MqttClient()
+    mqtt_receiver.connect_to_pc()
+
+    while True:
+        time.sleep(0.01)
+
+
 # -----------------------------------------------------------------------------
 # Calls  main  to start the ball rolling.
 # -----------------------------------------------------------------------------
