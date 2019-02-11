@@ -150,9 +150,37 @@ def get_control_frame(window, mqtt_sender):
 def get_drive_system_frame(window, mqtt_sender):
     frame = ttk.Frame(window, padding=1, borderwidth=5, relief='ridge')
     frame.grid()
+
     frame_label = ttk.Label(frame, text='Drive System')
 
+    speed_label = ttk.Label(frame, text='Robot Speed')
+    inches_label = ttk.Label(frame, text='Inches moved')
+    seconds_label = ttk.Label(frame, text='Seconds of movement')
+
+    speed_entry = ttk.Entry(frame, width=8)
+    inches_entry = ttk.Entry(frame, width=8)
+    seconds_entry = ttk.Entry(frame, width=8)
+
+    frame_label = ttk.Label(frame, text='Drive System')
+    forward_seconds_button = ttk.Button(frame, text='Forward with Seconds')
+    forward_inches_encoder_button = ttk.Button(frame, text='Forward with Inches (using Encoder)')
+    forward_inches_time_button = ttk.Button(frame, text='Forward with Inches(using Time)')
+
+
+
     frame_label.grid(row=0, column=1)
+    speed_label.grid(row=1, column=1)
+    speed_entry.grid(row=2, column=1)
+    inches_label.grid(row=2, column=0)
+    inches_entry.grid(row=3, column=0)
+    seconds_label.grid(row=2, column=2)
+    seconds_entry.grid(row=3, column=2)
+    forward_inches_encoder_button.grid(row=4, column=0)
+    forward_seconds_button.grid(row=5, column=0)
+    forward_inches_time_button.grid(row=4, column=2)
+
+
+
 
     return frame
 
