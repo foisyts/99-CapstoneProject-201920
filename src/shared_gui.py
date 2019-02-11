@@ -153,17 +153,27 @@ def get_drive_system_frame(window, mqtt_sender):
 
     frame_label = ttk.Label(frame, text='Drive System', font='Arial 14 bold')
 
+    empty_label_1 = ttk.Label(frame, text='')
+
     speed_label = ttk.Label(frame, text='Robot Speed')
     inches_label = ttk.Label(frame, text='Inches moved')
     seconds_label = ttk.Label(frame, text='Seconds of movement')
+    intensity_label = ttk.Label(frame, text='Intensity of Light')
+    color_label = ttk.Label(frame, text='Color')
 
     speed_entry = ttk.Entry(frame, width=8)
     inches_entry = ttk.Entry(frame, width=8)
     seconds_entry = ttk.Entry(frame, width=8)
+    intensity_entry = ttk.Entry(frame, width=8)
+    color_entry = ttk.Entry(frame, width=8)
 
     forward_seconds_button = ttk.Button(frame, text='Forward with Seconds')
     forward_inches_encoder_button = ttk.Button(frame, text='Forward with Inches (using Encoder)')
     forward_inches_time_button = ttk.Button(frame, text='Forward with Inches(using Time)')
+    forward_until_intensity_less_button = ttk.Button(frame, text='Forward until Intensity is less than')
+    forward_until_intensity_greater_button = ttk.Button(frame, text='Forward until Intensity is greater than')
+    forward_until_color_is = ttk.Button(frame, text='Forward until color is')
+    forward_until_color_not = ttk.Button(frame, text='Forward until is not')
 
     frame_label.grid(row=0, column=1)
     speed_label.grid(row=1, column=1)
@@ -175,6 +185,17 @@ def get_drive_system_frame(window, mqtt_sender):
     forward_inches_encoder_button.grid(row=4, column=0)
     forward_seconds_button.grid(row=4, column=2)
     forward_inches_time_button.grid(row=5, column=0)
+    empty_label_1.grid(row=6, column=0)
+    intensity_label.grid(row=7, column=0)
+    color_label.grid(row=7, column=2)
+    intensity_entry.grid(row=8, column=0)
+    color_entry.grid(row=8, column=2)
+    forward_until_intensity_less_button.grid(row=9, column=0)
+    forward_until_color_is.grid(row=9, column=2)
+    forward_until_intensity_greater_button.grid(row=10, column=0)
+    forward_until_color_not.grid(row=10, column=2)
+
+
 
     forward_inches_encoder_button["command"] = lambda: handle_forward_inches_with_encoder(mqtt_sender, inches_entry,
                                                                                           speed_entry)
