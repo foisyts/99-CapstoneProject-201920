@@ -223,7 +223,6 @@ def get_sound_system_frame(window, mqtt_sender):
     return frame
 
 
-
 ###############################################################################
 ###############################################################################
 # The following specifies, for each Button,
@@ -244,6 +243,7 @@ def handle_forward(left_entry_box, right_entry_box, mqtt_sender):
     """
     print("forward", left_entry_box.get(), right_entry_box.get())
     mqtt_sender.send_message("forward", [left_entry_box.get(), right_entry_box.get()])
+
 
 def handle_backward(left_entry_box, right_entry_box, mqtt_sender):
     """
@@ -268,6 +268,7 @@ def handle_left(left_entry_box, right_entry_box, mqtt_sender):
     print("left", left_entry_box.get(), right_entry_box.get())
     mqtt_sender.send_message("left", [left_entry_box.get(), right_entry_box.get()])
 
+
 def handle_right(left_entry_box, right_entry_box, mqtt_sender):
     """
     Tells the robot to move using the speeds in the given entry boxes,
@@ -279,6 +280,7 @@ def handle_right(left_entry_box, right_entry_box, mqtt_sender):
     print("right", left_entry_box.get(), right_entry_box.get())
     mqtt_sender.send_message("right", [left_entry_box.get(), right_entry_box.get()])
 
+
 def handle_stop(mqtt_sender):
     """
     Tells the robot to stop.
@@ -286,6 +288,7 @@ def handle_stop(mqtt_sender):
     """
     print("stop")
     mqtt_sender.send_message("stop")
+
 
 ###############################################################################
 # Handlers for Buttons in the ArmAndClaw frame.
@@ -298,6 +301,7 @@ def handle_raise_arm(mqtt_sender):
     print("Raising arm")
     mqtt_sender.send_message("raise_arm")
 
+
 def handle_lower_arm(mqtt_sender):
     """
     Tells the robot to lower its Arm until it is all the way down.
@@ -305,6 +309,7 @@ def handle_lower_arm(mqtt_sender):
     """
     print("Lowering arm")
     mqtt_sender.send_message("lower_arm")
+
 
 def handle_calibrate_arm(mqtt_sender):
     """
@@ -316,6 +321,7 @@ def handle_calibrate_arm(mqtt_sender):
     print("Calibrating arm")
     mqtt_sender.send_message("calibrate_arm")
 
+
 def handle_move_arm_to_position(arm_position_entry, mqtt_sender):
     """
     Tells the robot to move its Arm to the position in the given Entry box.
@@ -326,6 +332,7 @@ def handle_move_arm_to_position(arm_position_entry, mqtt_sender):
     print("Moving arm to", int(arm_position_entry.get()))
     mqtt_sender.send_message("move_arm_to", [arm_position_entry.get()])
 
+
 ###############################################################################
 # Handlers for Buttons in the Control frame.
 ###############################################################################
@@ -334,6 +341,8 @@ def handle_quit(mqtt_sender):
     Tell the robot's program to stop its loop (and hence quit).
       :type  mqtt_sender:  com.MqttClient
     """
+    print('quitting')
+    mqtt_sender.send_message('quit')
 
 
 def handle_exit(mqtt_sender):
@@ -342,6 +351,10 @@ def handle_exit(mqtt_sender):
     Then exit this program.
       :type mqtt_sender: com.MqttClient
     """
+    print('exit')
+    handle_quit(mqtt_sender)
+    exit()
+
 
 ###############################################################################
 # Handlers for Buttons in the Drive System.
@@ -354,6 +367,7 @@ def handle_forward_seconds(mqtt_sender, seconds_entry, speed_entry):
 def handle_forward_inches_with_time(mqtt_sender, inches_entry, speed_entry):
     print("Moving forward", inches_entry.get(), "inches using time")
     mqtt_sender.send_message("go_straight_for_inches_using_time", [inches_entry.get(), speed_entry.get()])
+
 
 def handle_forward_inches_with_encoder(mqtt_sender, inches_entry, speed_entry):
     print("Moving forward", inches_entry.get(), "inches using the encoder")
