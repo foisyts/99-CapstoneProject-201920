@@ -302,3 +302,18 @@ def handle_exit(mqtt_sender):
     Then exit this program.
       :type mqtt_sender: com.MqttClient
     """
+
+###############################################################################
+# Handlers for Buttons in the Drive System.
+###############################################################################
+def handle_forward_seconds(mqtt_sender, seconds_entry, speed_entry):
+    print("Moving forward for", seconds_entry.get(), "seconds")
+    mqtt_sender.send_message("go_straight_for_seconds", [seconds_entry.get(), speed_entry.get()])
+
+def handle_forward_inches_with_time(mqtt_sender, speed_entry, inches_entry):
+    print("Moving forward", inches_entry.get(), "inches using speed")
+    mqtt_sender.send_message("go_straight_for_inches_using_time", [inches_entry.get(), speed_entry.get()])
+
+def handle_forward_inches_with_encoder(mqtt_sender, inches_entry, speed_entry):
+    print("Moving forward", inches_entry.get(), "inches using the encoder")
+    mqtt_sender.send_message("go_straight_for_inches_using_encoder", [inches_entry.get(), speed_entry.get()])
