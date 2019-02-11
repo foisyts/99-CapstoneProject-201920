@@ -24,9 +24,9 @@ def main():
     # run_test_lower_arm()
     # run_test_go_straight_for_seconds()
     # time.sleep(2)
-    run_test_go_straight_for_inches_using_time()
-    time.sleep(1)
-    run_test_go_straight_using_encoder()
+    # run_test_go_straight_for_inches_using_time()
+    # time.sleep(1)
+    # run_test_go_straight_using_encoder()
 
 
 def real_thing():

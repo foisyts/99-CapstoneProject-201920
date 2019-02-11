@@ -315,7 +315,7 @@ def handle_forward_seconds(mqtt_sender, seconds_entry, speed_entry):
 
 
 def handle_forward_inches_with_time(mqtt_sender, inches_entry, speed_entry):
-    print("Moving forward", inches_entry.get(), "inches using speed")
+    print("Moving forward", inches_entry.get(), "inches using time")
     mqtt_sender.send_message("go_straight_for_inches_using_time", [inches_entry.get(), speed_entry.get()])
 
 def handle_forward_inches_with_encoder(mqtt_sender, inches_entry, speed_entry):
