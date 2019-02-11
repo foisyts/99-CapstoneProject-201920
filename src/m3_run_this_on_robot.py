@@ -35,8 +35,11 @@ def real_thing():
     mqtt_receiver = com.MqttClient(delegate_that_receives)
     mqtt_receiver.connect_to_pc()
 
+
     while True:
         time.sleep(0.01)
+        if delegate_that_receives.is_time_to_stop:
+            break
 
 
 def run_test_arm():

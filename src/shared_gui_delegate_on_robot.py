@@ -12,6 +12,7 @@ class DelegateThatReceives(object):
     def __init__(self, robot):
         """:type robot: rosebot.RoseBot """
         self.robot = robot
+        self.is_time_to_stop = False
 
     # Teleop
     def forward(self, left_wheel_speed, right_wheel_speed):
@@ -43,6 +44,14 @@ class DelegateThatReceives(object):
         self.robot.arm_and_claw.move_arm_to_position(int(position))
 
     # Control Frame
+    def quit(self):
+        print('got quit')
+        self.is_time_to_stop = True
+
+    def exit(self):
+        print('got exit')
+        self.quit()
+        self.exit()
 
     # DriveSystem
     def go_straight_for_seconds(self, seconds, speed):
@@ -55,11 +64,15 @@ class DelegateThatReceives(object):
         self.robot.drive_system.go_straight_for_inches_using_encoder(int(inches), int(speed))
 
     # SoundSystem
-    def beep_n_times(self, n, frequency):
-        print('I will beep', int(n), 'times at', frequency)
+    def beep_n_times(self, n):
+        #print('I will beep', int(n), 'times at', frequency)
+        print('beeping')
+        for _ in range(n):
+            self.robot.sound_system.beeper.beep().wait()
 
     def play_a_tone_at_frequency_for_duration(self, duration, frequency):
-        print('I will play a tone at frequency', int(frequency), 'for duration', int(duration))
+        # print('I will play a tone at frequency', int(frequency), 'for duration', int(duration))
+        self.tone(int(frequency), int(duration))
 
     def speak_a_phrase(self, phrase):
         print('I will now speak the phrase', phrase)
