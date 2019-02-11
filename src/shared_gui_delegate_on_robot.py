@@ -55,10 +55,10 @@ class DelegateThatReceives(object):
         self.robot.drive_system.go_straight_for_inches_using_encoder(int(inches), int(speed))
 
     # SoundSystem
-    def beep_n_times(self, n):
-        print('I will beep', int(n), 'times')
+    def beep_n_times(self, n, frequency):
+        print('I will beep', int(n), 'times at', frequency)
 
-    def play_a_tone_at_frequency_for_duration(self, frequency, duration):
+    def play_a_tone_at_frequency_for_duration(self, duration, frequency):
         print('I will play a tone at frequency', int(frequency), 'for duration', int(duration))
 
     def speak_a_phrase(self, phrase):
