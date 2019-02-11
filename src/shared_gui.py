@@ -179,8 +179,8 @@ def get_drive_system_frame(window, mqtt_sender):
 
     forward_inches_encoder_button["command"] = lambda: handle_forward_inches_with_encoder(mqtt_sender, inches_entry,
                                                                                           speed_entry)
-    forward_inches_time_button["command"] = lambda: handle_forward_inches_with_time(mqtt_sender, speed_entry,
-                                                                                    inches_entry)
+    forward_inches_time_button["command"] = lambda: handle_forward_inches_with_time(mqtt_sender, inches_entry,
+                                                                                    speed_entry)
     forward_seconds_button["command"] = lambda: handle_forward_seconds(mqtt_sender, seconds_entry, speed_entry)
 
 
