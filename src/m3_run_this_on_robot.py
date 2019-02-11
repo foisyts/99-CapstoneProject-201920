@@ -27,6 +27,11 @@ def main():
     # run_test_go_straight_for_inches_using_time()
     # time.sleep(1)
     # run_test_go_straight_using_encoder()
+    # run_test_intensity_less_than()
+    # run_test_intensity_greater_than()
+    # run_test_color_is()
+    # run_test_color_is_not()
+
 
 
 def real_thing():
@@ -72,6 +77,22 @@ def run_test_go_straight_for_inches_using_time():
 def run_test_go_straight_using_encoder():
     robot = rosebot.RoseBot()
     robot.drive_system.go_straight_for_inches_using_encoder(24, 50)
+
+def run_test_intensity_less_than():
+    robot = rosebot.RoseBot()
+    robot.drive_system.go_straight_until_intensity_is_less_than(30, 100)
+
+def run_test_intensity_greater_than():
+    robot = rosebot.RoseBot()
+    robot.drive_system.go_straight_until_intensity_is_greater_than(30, 100)
+
+def run_test_color_is():
+    robot = rosebot.RoseBot()
+    robot.drive_system.go_straight_until_color_is(6, 100)
+
+def run_test_color_is_not():
+    robot = rosebot.RoseBot()
+    robot.drive_system.go_straight_until_color_is_not('White', 100)
 
 
 # -----------------------------------------------------------------------------
