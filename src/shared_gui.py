@@ -216,6 +216,10 @@ def get_sound_system_frame(window, mqtt_sender):
     beep_button.grid(row=4, column=2)
     phrase_entry.grid(row=5, column=1)
 
+    beep_button["command"] = lambda: handle_beep(mqtt_sender, number_entry, frequency_entry)
+    tone_button["command"] = lambda: handle_tone(mqtt_sender, time_entry, frequency_entry)
+    phrase_button["command"] = lambda: handle_phrase(mqtt_sender, phrase_entry)
+
     return frame
 
 
@@ -354,3 +358,21 @@ def handle_forward_inches_with_time(mqtt_sender, inches_entry, speed_entry):
 def handle_forward_inches_with_encoder(mqtt_sender, inches_entry, speed_entry):
     print("Moving forward", inches_entry.get(), "inches using the encoder")
     mqtt_sender.send_message("go_straight_for_inches_using_encoder", [inches_entry.get(), speed_entry.get()])
+
+
+###############################################################################
+# Handlers for Buttons in the Sound System.
+###############################################################################
+def handle_beep(mqtt_sender, number_entry, frequency_entry):
+    print("Beeping", number_entry.get(), "times")
+    mqtt_sender.send_message("beep_n_times", [number_entry.get(), frequency_entry.get()])
+
+
+def handle_tone(mqtt_sender, duration_entry, frequency_entry):
+    print('Playing a tone at', frequency_entry.get(), 'for', duration_entry.get(), 'seconds')
+    mqtt_sender.send_message("play_a_tone_at_frequency_for_duration", [duration_entry.get(), frequency_entry.get()])
+
+
+def handle_phrase(mqtt_sender, phrase_entry):
+    print('Saying', phrase_entry.get())
+    mqtt_sender.send_message('speak_a_phrase', [phrase_entry.get()])
