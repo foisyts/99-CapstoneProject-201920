@@ -67,12 +67,13 @@ class DelegateThatReceives(object):
     def beep_n_times(self, n):
         #print('I will beep', int(n), 'times at', frequency)
         print('beeping')
-        for _ in range(n):
+        for _ in range(int(n)):
             self.robot.sound_system.beeper.beep().wait()
 
     def play_a_tone_at_frequency_for_duration(self, duration, frequency):
         # print('I will play a tone at frequency', int(frequency), 'for duration', int(duration))
-        self.tone(int(frequency), int(duration))
+        self.robot.sound_system.tone(int(frequency), int(duration))
 
     def speak_a_phrase(self, phrase):
         print('I will now speak the phrase', phrase)
+        self.robot.sound_system.speak(phrase)

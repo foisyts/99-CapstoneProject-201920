@@ -358,6 +358,14 @@ class SoundSystem(object):
         self.speech_maker = SpeechMaker()
         self.song_maker = SongMaker()
 
+    def beep(self):
+        self.beeper.beep()
+
+    def tone(self, duration, frequency):
+        self.tone_maker.play_tone(duration, frequency)
+
+    def speak(self, phrase):
+        self.speech_maker.speak(phrase)
 
 ###############################################################################
 #    LEDSystem
