@@ -32,7 +32,7 @@ def get_teleoperation_frame(window, mqtt_sender):
     frame.grid()
 
     # Construct the widgets on the frame:
-    frame_label = ttk.Label(frame, text="Teleoperation")
+    frame_label = ttk.Label(frame, text="Teleoperation", font='Arial 14 bold')
     left_speed_label = ttk.Label(frame, text="Left wheel speed (0 to 100)")
     right_speed_label = ttk.Label(frame, text="Right wheel speed (0 to 100)")
 
@@ -87,7 +87,7 @@ def get_arm_frame(window, mqtt_sender):
     frame.grid()
 
     # Construct the widgets on the frame:
-    frame_label = ttk.Label(frame, text="Arm and Claw")
+    frame_label = ttk.Label(frame, text="Arm and Claw", font='Arial 14 bold')
     position_label = ttk.Label(frame, text="Desired arm position:")
     position_entry = ttk.Entry(frame, width=8)
 
@@ -151,7 +151,7 @@ def get_drive_system_frame(window, mqtt_sender):
     frame = ttk.Frame(window, padding=1, borderwidth=5, relief='ridge')
     frame.grid()
 
-    frame_label = ttk.Label(frame, text='Drive System')
+    frame_label = ttk.Label(frame, text='Drive System', font='Arial 14 bold')
 
     speed_label = ttk.Label(frame, text='Robot Speed')
     inches_label = ttk.Label(frame, text='Inches moved')
@@ -189,7 +189,7 @@ def get_sound_system_frame(window, mqtt_sender):
     frame = ttk.Frame(window, padding=1, borderwidth=5, relief='ridge')
     frame.grid()
 
-    frame_label = ttk.Label(frame, text='Sound System')
+    frame_label = ttk.Label(frame, text='Sound System', font='Arial 14 bold')
 
     number_label = ttk.Label(frame, text='Number of Beeps')
     frequency_label = ttk.Label(frame, text='Frequency')
