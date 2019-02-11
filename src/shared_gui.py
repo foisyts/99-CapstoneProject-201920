@@ -146,6 +146,16 @@ def get_control_frame(window, mqtt_sender):
 
     return frame
 
+
+def get_drive_system_frame(window, mqtt_sender):
+    frame = ttk.Frame(window, padding=1, borderwidth=5, relief='ridge')
+    frame.grid()
+    frame_label = ttk.Label(frame, tect='Drive System')
+
+    frame_label.grid(row=0, column=1)
+
+    return frame
+
 ###############################################################################
 ###############################################################################
 # The following specifies, for each Button,
