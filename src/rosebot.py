@@ -101,7 +101,6 @@ class DriveSystem(object):
                 self.right_motor.turn_off()
                 break
 
-
     def go_straight_for_inches_using_time(self, inches, speed):
         """
         Makes the robot go straight at the given speed
@@ -138,12 +137,22 @@ class DriveSystem(object):
         Goes straight at the given speed until the intensity returned
         by the color_sensor is less than the given intensity.
         """
+        self.go(speed, speed)
+        while True:
+            if self.sensor_system.color_sensor.get_reflected_light_intensity() <= int(intensity):
+                break
+        self.stop()
 
     def go_straight_until_intensity_is_greater_than(self, intensity, speed):
         """
         Goes straight at the given speed until the intensity returned
         by the color_sensor is greater than the given intensity.
         """
+        self.go(speed, speed)
+        while True:
+            if self.sensor_system.color_sensor.get_reflected_light_intensity() >= int(intensity):
+                break
+        self.stop()
 
     def go_straight_until_color_is(self, color, speed):
         """
@@ -158,6 +167,22 @@ class DriveSystem(object):
         then use the   get_color_as_name   method to access
         the color sensor's color.
         """
+        x = None
+        self.go(speed, speed)
+        try:
+            int(color)
+            x = True
+        except ValueError:
+            x = False
+        if x is False:
+            while True:
+                if self.sensor_system.color_sensor.get_color_as_name() == color:
+                    break
+        elif x is True:
+            while True:
+                if self.sensor_system.color_sensor.get_color() == int(color):
+                    break
+        self.stop()
 
     def go_straight_until_color_is_not(self, color, speed):
         """
@@ -167,6 +192,23 @@ class DriveSystem(object):
         Colors can be integers from 0 to 7 or any of the strings
         listed in the ColorSensor class.
         """
+
+        x = None
+        self.go(speed, speed)
+        try:
+            int(color)
+            x = True
+        except ValueError:
+            x = False
+        if x is False:
+            while True:
+                if self.sensor_system.color_sensor.get_color_as_name() != color:
+                    break
+        elif x is True:
+            while True:
+                if self.sensor_system.color_sensor.get_color() != int(color):
+                    break
+        self.stop()
 
     # -------------------------------------------------------------------------
     # Methods for driving that use the infrared proximity sensor.
@@ -342,7 +384,6 @@ class SensorSystem(object):
         # self.display_system =
 
 
-
 ###############################################################################
 #    SoundSystem
 ###############################################################################
@@ -366,6 +407,7 @@ class SoundSystem(object):
 
     def speak(self, phrase):
         self.speech_maker.speak(phrase)
+
 
 ###############################################################################
 #    LEDSystem
@@ -430,6 +472,7 @@ class DisplaySystem(object):
 ###############################################################################
 class Motor(object):
     WheelCircumference = 1.3 * math.pi
+
     def __init__(self, port, motor_type='large'):
         # port must be 'A', 'B', 'C', or 'D'.  Use 'arm' as motor_type for Arm.
         if motor_type == 'large':
