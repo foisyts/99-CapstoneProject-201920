@@ -121,7 +121,7 @@ class DriveSystem(object):
         self.go(speed, speed)
         while True:
             angular_position = abs(self.left_motor.get_position())
-            if desired_degrees >= angular_position:
+            if desired_degrees <= angular_position:
                 self.stop()
                 break
 

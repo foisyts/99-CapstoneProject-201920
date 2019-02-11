@@ -22,8 +22,8 @@ def main():
     # run_test_calibrate_arm()
     # run_test_move_arm_to_position(100)
     # run_test_lower_arm()
-    run_test_go_straight_for_seconds()
-    time.sleep(2)
+    # run_test_go_straight_for_seconds()
+    # time.sleep(2)
     run_test_go_straight_for_inches_using_time()
     time.sleep(1)
     run_test_go_straight_using_encoder()
@@ -64,11 +64,11 @@ def run_test_go_straight_for_seconds():
 
 def run_test_go_straight_for_inches_using_time():
     robot = rosebot.RoseBot()
-    robot.drive_system.go_straight_for_inches_using_time(24, 100)
+    robot.drive_system.go_straight_for_inches_using_time(24, 50)
 
 def run_test_go_straight_using_encoder():
     robot = rosebot.RoseBot()
-    robot.drive_system.go_straight_for_inches_using_encoder(24, 100)
+    robot.drive_system.go_straight_for_inches_using_encoder(24, 50)
 
 
 # -----------------------------------------------------------------------------
