@@ -161,7 +161,6 @@ def get_drive_system_frame(window, mqtt_sender):
     inches_entry = ttk.Entry(frame, width=8)
     seconds_entry = ttk.Entry(frame, width=8)
 
-    frame_label = ttk.Label(frame, text='Drive System')
     forward_seconds_button = ttk.Button(frame, text='Forward with Seconds')
     forward_inches_encoder_button = ttk.Button(frame, text='Forward with Inches (using Encoder)')
     forward_inches_time_button = ttk.Button(frame, text='Forward with Inches(using Time)')
@@ -183,9 +182,43 @@ def get_drive_system_frame(window, mqtt_sender):
                                                                                     speed_entry)
     forward_seconds_button["command"] = lambda: handle_forward_seconds(mqtt_sender, seconds_entry, speed_entry)
 
+    return frame
 
+
+def get_sound_system_frame(window, mqtt_sender):
+    frame = ttk.Frame(window, padding=1, borderwidth=5, relief='ridge')
+    frame.grid()
+
+    frame_label = ttk.Label(frame, text='Sound System')
+
+    number_label = ttk.Label(frame, text='Number of Beeps')
+    frequency_label = ttk.Label(frame, text='Frequency')
+    time_label = ttk.Label(frame, text='Duration')
+
+    frequency_entry = ttk.Entry(frame, width=8)
+    number_entry = ttk.Entry(frame, width=8)
+    time_entry = ttk.Entry(frame, width=8)
+    phrase_entry = ttk.Entry(frame, width=20)
+
+    beep_button = ttk.Button(frame, text='^Beep for this many times^')
+    tone_button = ttk.Button(frame, text='^Play freq. for this long^')
+    phrase_button = ttk.Button(frame, text='Say this phrase:')
+
+    frame_label.grid(row=0, column=1)
+    frequency_label.grid(row=1, column=1)
+    time_label.grid(row=2, column=0)
+    frequency_entry.grid(row=2, column=1)
+    number_label.grid(row=2, column=2)
+    time_entry.grid(row=3, column=0)
+    number_entry.grid(row=3, column=2)
+    tone_button.grid(row=4, column=0)
+    phrase_button.grid(row=4, column=1)
+    beep_button.grid(row=4, column=2)
+    phrase_entry.grid(row=5, column=1)
 
     return frame
+
+
 
 ###############################################################################
 ###############################################################################
