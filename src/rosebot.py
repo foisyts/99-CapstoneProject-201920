@@ -221,6 +221,7 @@ class DriveSystem(object):
         self.go(int(speed), int(speed))
         while True:
             d = self.sensor_system.ir_proximity_sensor.get_distance_in_inches()
+            time.sleep(.2)
             print(d)
             if d <= float(inches):
                 break
@@ -235,6 +236,7 @@ class DriveSystem(object):
         self.go(-int(speed), -int(speed))
         while True:
             d = self.sensor_system.ir_proximity_sensor.get_distance_in_inches()
+            time.sleep(.2)
             print(d)
             if d >= float(inches):
                 break
@@ -251,6 +253,7 @@ class DriveSystem(object):
         from the object.
         """
         x = self.sensor_system.ir_proximity_sensor.get_distance_in_inches()
+        time.sleep(.2)
         max_distance = float(inches) + float(delta)
         min_distance = float(inches) - float(delta)
         if x > max_distance:
