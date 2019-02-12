@@ -222,7 +222,7 @@ class DriveSystem(object):
         while True:
             d = self.sensor_system.ir_proximity_sensor.get_distance_in_inches()
             print(d)
-            if d <= int(inches):
+            if d <= float(inches):
                 break
         self.stop()
 
@@ -236,7 +236,7 @@ class DriveSystem(object):
         while True:
             d = self.sensor_system.ir_proximity_sensor.get_distance_in_inches()
             print(d)
-            if d >= int(inches):
+            if d >= float(inches):
                 break
         self.stop()
 
@@ -251,8 +251,8 @@ class DriveSystem(object):
         from the object.
         """
         x = self.sensor_system.ir_proximity_sensor.get_distance_in_inches()
-        max_distance = int(inches) + int(delta)
-        min_distance = int(inches) - int(delta)
+        max_distance = float(inches) + float(delta)
+        min_distance = float(inches) - float(delta)
         if x > max_distance:
             self.go_forward_until_distance_is_less_than(max_distance, int(speed))
         elif x < min_distance:
@@ -291,6 +291,7 @@ class DriveSystem(object):
         Prints on the Console the Blob data of the Blob that the camera sees
         (if any).
         """
+        self.sensor_system.camera.get_biggest_blob()
 
     def spin_clockwise_until_sees_object(self, speed, area):
         """
