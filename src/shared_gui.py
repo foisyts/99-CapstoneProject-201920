@@ -155,6 +155,7 @@ def get_drive_system_frame(window, mqtt_sender):
 
     empty_label_1 = ttk.Label(frame, text=' ')
     empty_label_2 = ttk.Label(frame, text=' ')
+    empty_label_3 = ttk.Label(frame, text=' ')
 
     speed_label = ttk.Label(frame, text='Robot Speed')
     inches_label = ttk.Label(frame, text='Inches moved')
