@@ -164,6 +164,7 @@ def get_drive_system_frame(window, mqtt_sender):
     color_label = ttk.Label(frame, text='Color')
     inches_label_2 = ttk.Label(frame, text='Inches moved')
     delta_label = ttk.Label(frame, text='plus or minus(in inches) : ')
+    area_label = ttk.Label(frame, text='Area seen')
 
     speed_entry = ttk.Entry(frame, width=8)
     inches_entry = ttk.Entry(frame, width=8)
@@ -172,6 +173,7 @@ def get_drive_system_frame(window, mqtt_sender):
     color_entry = ttk.Entry(frame, width=8)
     inches_entry_2 = ttk.Entry(frame, width=8)
     delta_entry = ttk.Entry(frame, width=8)
+    area_entry = ttk.Entry(frame, width=8)
 
     forward_seconds_button = ttk.Button(frame, text='Forward with Seconds')
     forward_inches_encoder_button = ttk.Button(frame, text='Forward with Inches (using Encoder)')
@@ -183,6 +185,9 @@ def get_drive_system_frame(window, mqtt_sender):
     forward_until_dist_less_than = ttk.Button(frame, text='Forward until distance is less than')
     backward_until_dist_greater_than = ttk.Button(frame, text='Backward until distance is greater than')
     go_until_dist_within = ttk.Button(frame, text='Move until distance is close to')
+    display_camera_button = ttk.Button(frame, text='Display camera input')
+    clockwise_until_sees_object = ttk.Button(frame, text='Spin clockwise until object with area is seen')
+    counterclockwise_until_sees_object = ttk.Button(frame, text='Spin clockwise until object with area is seen')
 
     frame_label.grid(row=0, column=1)
     speed_label.grid(row=1, column=1)
@@ -211,6 +216,12 @@ def get_drive_system_frame(window, mqtt_sender):
     delta_entry.grid(row=14, column=2)
     forward_until_dist_less_than.grid(row=15, column=0)
     backward_until_dist_greater_than.grid(row=16, column=0)
+    empty_label_3.grid(row=17, column=0)
+    area_label.grid(row=18, column=0)
+    area_entry.grid(row=19, column=0)
+    clockwise_until_sees_object.grid(row=20, column=0)
+    display_camera_button.grid(row=20, column=2)
+    counterclockwise_until_sees_object.grid(row=21, column=0)
 
     forward_inches_encoder_button["command"] = lambda: handle_forward_inches_with_encoder(mqtt_sender, inches_entry,
                                                                                           speed_entry)
