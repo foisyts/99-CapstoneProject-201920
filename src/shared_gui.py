@@ -153,7 +153,7 @@ def get_drive_system_frame(window, mqtt_sender):
 
     frame_label = ttk.Label(frame, text='Drive System', font='Arial 14 bold')
 
-    empty_label_1 = ttk.Label(frame, text='')
+    empty_label_1 = ttk.Label(frame, text=' ')
 
     speed_label = ttk.Label(frame, text='Robot Speed')
     inches_label = ttk.Label(frame, text='Inches moved')
@@ -195,13 +195,23 @@ def get_drive_system_frame(window, mqtt_sender):
     forward_until_intensity_greater_button.grid(row=10, column=0)
     forward_until_color_not.grid(row=10, column=2)
 
-
-
     forward_inches_encoder_button["command"] = lambda: handle_forward_inches_with_encoder(mqtt_sender, inches_entry,
                                                                                           speed_entry)
     forward_inches_time_button["command"] = lambda: handle_forward_inches_with_time(mqtt_sender, inches_entry,
                                                                                     speed_entry)
     forward_seconds_button["command"] = lambda: handle_forward_seconds(mqtt_sender, seconds_entry, speed_entry)
+
+    forward_until_intensity_less_button["command"] = lambda: handle_forward_until_intensity_less(mqtt_sender,
+                                                                                                 intensity_entry,
+                                                                                                 speed_entry)
+
+    forward_until_intensity_greater_button["command"] = lambda: handle_forward_until_intensity_greater(mqtt_sender,
+                                                                                                       intensity_entry,
+                                                                                                       speed_entry)
+
+    forward_until_color_is["command"] = lambda: handle_forward_until_color_is(mqtt_sender, color_entry, speed_entry)
+
+    forward_until_color_not["command"] = lambda: handle_forward_until_color_is_not(mqtt_sender, color_entry, speed_entry)
 
     return frame
 
@@ -393,6 +403,26 @@ def handle_forward_inches_with_time(mqtt_sender, inches_entry, speed_entry):
 def handle_forward_inches_with_encoder(mqtt_sender, inches_entry, speed_entry):
     print("Moving forward", inches_entry.get(), "inches using the encoder")
     mqtt_sender.send_message("go_straight_for_inches_using_encoder", [inches_entry.get(), speed_entry.get()])
+
+
+def handle_forward_until_intensity_less(mqtt_sender, intensity_entry, speed_entry):
+    print("moving forward till light intensity is less than", intensity_entry.get())
+    mqtt_sender.send_message("go_straight_until_intensity_is_less_than", [intensity_entry.get(), speed_entry.get()])
+
+
+def handle_forward_until_intensity_greater(mqtt_sender, intensity_entry, speed_entry):
+    print("moving forward till light intensity is greater than", intensity_entry.get())
+    mqtt_sender.send_message("go_straight_until_intensity_is_greater_than", [intensity_entry.get(), speed_entry.get()])
+
+
+def handle_forward_until_color_is(mqtt_sender, color_entry, speed_entry):
+    print('moving forward till color is', color_entry.get())
+    mqtt_sender.send_message('go_straight_until_color_is', [color_entry.get(), speed_entry.get()])
+
+
+def handle_forward_until_color_is_not(mqtt_sender, color_entry, speed_entry):
+    print('moving forward till color is not', color_entry.get())
+    mqtt_sender.send_message('go_straight_until_color_is_not', [color_entry.get(), speed_entry.get()])
 
 
 ###############################################################################

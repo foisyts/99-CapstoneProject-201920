@@ -63,9 +63,21 @@ class DelegateThatReceives(object):
     def go_straight_for_inches_using_encoder(self, inches, speed):
         self.robot.drive_system.go_straight_for_inches_using_encoder(int(inches), int(speed))
 
+    def go_straight_until_intensity_is_less_than(self, intensity, speed):
+        self.robot.drive_system.go_straight_until_intensity_is_less_than(int(intensity), int(speed))
+
+    def go_straight_until_intensity_is_greater_than(self, intensity, speed):
+        self.robot.drive_system.go_straight_until_intensity_is_greater_than(int(intensity), int(speed))
+
+    def go_straight_until_color_is(self, color, speed):
+        self.robot.drive_system.go_straight_until_color_is(color, int(speed))
+
+    def go_straight_until_color_is_not(self, color, speed):
+        self.robot.drive_system.go_straight_until_color_is_not(color, int(speed))
+
     # SoundSystem
     def beep_n_times(self, n):
-        #print('I will beep', int(n), 'times at', frequency)
+        # print('I will beep', int(n), 'times at', frequency)
         print('beeping')
         for _ in range(int(n)):
             self.robot.sound_system.beeper.beep().wait()
