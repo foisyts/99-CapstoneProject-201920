@@ -31,7 +31,10 @@ def main():
     # run_test_intensity_greater_than()
     # run_test_color_is()
     # run_test_color_is_not()
-
+    # run_test_distance_is_less_than()
+    # run_test_distance_is_further_than()
+    # run_test_distance_within()
+    # ir_tester()
 
 
 def real_thing():
@@ -39,7 +42,6 @@ def real_thing():
     delegate_that_receives = shared_gui_delegate_on_robot.DelegateThatReceives(robot)
     mqtt_receiver = com.MqttClient(delegate_that_receives)
     mqtt_receiver.connect_to_pc()
-
 
     while True:
         time.sleep(0.01)
@@ -66,35 +68,58 @@ def run_test_lower_arm():
     robot = rosebot.RoseBot()
     robot.arm_and_claw.lower_arm()
 
+
 def run_test_go_straight_for_seconds():
     robot = rosebot.RoseBot()
     robot.drive_system.go_straight_for_seconds(5, 100)
+
 
 def run_test_go_straight_for_inches_using_time():
     robot = rosebot.RoseBot()
     robot.drive_system.go_straight_for_inches_using_time(24, 50)
 
+
 def run_test_go_straight_using_encoder():
     robot = rosebot.RoseBot()
     robot.drive_system.go_straight_for_inches_using_encoder(24, 50)
+
 
 def run_test_intensity_less_than():
     robot = rosebot.RoseBot()
     robot.drive_system.go_straight_until_intensity_is_less_than(30, 100)
 
+
 def run_test_intensity_greater_than():
     robot = rosebot.RoseBot()
     robot.drive_system.go_straight_until_intensity_is_greater_than(30, 100)
 
+
 def run_test_color_is():
     robot = rosebot.RoseBot()
     robot.drive_system.go_straight_until_color_is(6, 100)
+
 
 def run_test_color_is_not():
     robot = rosebot.RoseBot()
     robot.drive_system.go_straight_until_color_is_not('White', 100)
 
 
+def run_test_distance_is_less_than():
+    robot = rosebot.RoseBot()
+    robot.drive_system.go_forward_until_distance_is_less_than(8, 100)
+
+
+def run_test_distance_is_further_than():
+    robot = rosebot.RoseBot()
+    robot.drive_system.go_backward_until_distance_is_greater_than(30, 100)
+
+def run_test_distance_within():
+    robot = rosebot.RoseBot()
+    robot.drive_system.go_until_distance_is_within(.5, 7, 100)
+
+def ir_tester():
+    robot = rosebot.RoseBot()
+    print(robot.sensor_system.ir_proximity_sensor.get_distance_in_inches())
 # -----------------------------------------------------------------------------
 # Calls  main  to start the ball rolling.
 # -----------------------------------------------------------------------------
