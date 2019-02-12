@@ -184,7 +184,6 @@ def get_drive_system_frame(window, mqtt_sender):
     backward_until_dist_greater_than = ttk.Button(frame, text='Backward until distance is greater than')
     go_until_dist_within = ttk.Button(frame, text='Move until distance is close to')
 
-
     frame_label.grid(row=0, column=1)
     speed_label.grid(row=1, column=1)
     speed_entry.grid(row=2, column=1)
@@ -213,7 +212,6 @@ def get_drive_system_frame(window, mqtt_sender):
     forward_until_dist_less_than.grid(row=15, column=0)
     backward_until_dist_greater_than.grid(row=16, column=0)
 
-
     forward_inches_encoder_button["command"] = lambda: handle_forward_inches_with_encoder(mqtt_sender, inches_entry,
                                                                                           speed_entry)
     forward_inches_time_button["command"] = lambda: handle_forward_inches_with_time(mqtt_sender, inches_entry,
@@ -230,7 +228,8 @@ def get_drive_system_frame(window, mqtt_sender):
 
     forward_until_color_is["command"] = lambda: handle_forward_until_color_is(mqtt_sender, color_entry, speed_entry)
 
-    forward_until_color_not["command"] = lambda: handle_forward_until_color_is_not(mqtt_sender, color_entry, speed_entry)
+    forward_until_color_not["command"] = lambda: handle_forward_until_color_is_not(mqtt_sender, color_entry,
+                                                                                   speed_entry)
 
     return frame
 
@@ -442,6 +441,22 @@ def handle_forward_until_color_is(mqtt_sender, color_entry, speed_entry):
 def handle_forward_until_color_is_not(mqtt_sender, color_entry, speed_entry):
     print('moving forward till color is not', color_entry.get())
     mqtt_sender.send_message('go_straight_until_color_is_not', [color_entry.get(), speed_entry.get()])
+
+
+def handle_go_forward_until_distance_is_less_than(mqtt_sender, inches_entry_2, speed_entry):
+    print('moving forward until distance is less than', inches_entry_2.get())
+    mqtt_sender.send_message('go_forward_until_distance_is_less_than', [inches_entry_2.get(), speed_entry.get()])
+
+
+def handle_go_backward_until_distance_is_greater_than(mqtt_sender, inches_entry_2, speed_entry):
+    print('moving backward until distance is greater than', inches_entry_2.get())
+    mqtt_sender.send_message('go_forward_until_distance_is_greater_than', [inches_entry_2.get(), speed_entry.get()])
+
+
+def handle_go_until_distance_is_within(mqtt_sender, delta_entry, inches_entry_2, speed_entry):
+    print('moving until distance is within', delta_entry.get(), 'inches of', inches_entry_2.get())
+    mqtt_sender.send_message('go_until_distance_is_within',
+                             [delta_entry.get(), inches_entry_2.get(), speed_entry.get()])
 
 
 ###############################################################################
