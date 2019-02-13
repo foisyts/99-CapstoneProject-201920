@@ -144,18 +144,18 @@ def led_blinker(initial, rate):
     while True:
         d = robot.sensor_system.ir_proximity_sensor.get_distance_in_inches()
         robot.led_system.left_led.turn_on()
-        time.sleep(initial * (1 - ((122-d) / 122 + rate)))
+        time.sleep(initial * (1 - ((122-d) / 133 - rate)))
         d = robot.sensor_system.ir_proximity_sensor.get_distance_in_inches()
         robot.led_system.left_led.turn_off()
         robot.led_system.right_led.turn_on()
-        time.sleep(initial * (1 - ((122-d) / 122 + rate)))
+        time.sleep(initial * (1 - ((122-d) / 133 - rate)))
         d = robot.sensor_system.ir_proximity_sensor.get_distance_in_inches()
         robot.led_system.left_led.turn_on()
-        time.sleep(initial * (1 - ((122-d) / 122 + rate)))
+        time.sleep(initial * (1 - ((122-d) / 133 - rate)))
         d = robot.sensor_system.ir_proximity_sensor.get_distance_in_inches()
         robot.led_system.left_led.turn_off()
         robot.led_system.right_led.turn_off()
-        time.sleep(initial * (1 - ((122-d) / 122 + rate)))
+        time.sleep(initial * (1 - ((122-d) / 133 - rate)))
         d = robot.sensor_system.ir_proximity_sensor.get_distance_in_inches()
 
         if d <= 6:
