@@ -38,6 +38,8 @@ def main():
     # -------------------------------------------------------------------------
     main_frame = ttk.Frame(root, padding=10, borderwidth=5, relief="groove")
     main_frame.grid()
+    second_frame = ttk.Frame(root, padding=10, borderwidth=7)
+    second_frame.grid()
 
     # -------------------------------------------------------------------------
     # Sub-frames for the shared GUI that the team developed:
@@ -80,7 +82,6 @@ def grid_frames(teleop_frame, arm_frame, control_frame, drive_system_frame, soun
     control_frame.grid(row=2, column=0)
     drive_system_frame.grid(row=0, column=1)
     sound_system_frame.grid(row=1, column=1)
-
 
 
 # -----------------------------------------------------------------------------
