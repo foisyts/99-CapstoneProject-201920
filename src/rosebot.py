@@ -261,7 +261,6 @@ class DriveSystem(object):
         elif x < min_distance:
             self.go_backward_until_distance_is_greater_than(min_distance, int(speed))
 
-
     # -------------------------------------------------------------------------
     # Methods for driving that use the infrared beacon sensor.
     # -------------------------------------------------------------------------
@@ -294,7 +293,6 @@ class DriveSystem(object):
         Prints on the Console the Blob data of the Blob that the camera sees
         (if any).
         """
-        self.sensor_system.camera.get_biggest_blob()
 
     def spin_clockwise_until_sees_object(self, speed, area):
         """
@@ -429,7 +427,7 @@ class SoundSystem(object):
         self.beeper.beep()
 
     def tone(self, duration, frequency):
-        self.tone_maker.play_tone(duration, frequency)
+        self.tone_maker.play_tone(frequency, duration)
 
     def speak(self, phrase):
         self.speech_maker.speak(phrase)

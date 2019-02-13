@@ -30,7 +30,7 @@ def main():
     # The root TK object for the GUI:
     # -------------------------------------------------------------------------
     root = tkinter.Tk()
-    root.title("Robot 19 Interface")
+    root.title("CSSE 120 Capstone Project, Winter 2018-19")
 
 
     # -------------------------------------------------------------------------
@@ -38,7 +38,6 @@ def main():
     # -------------------------------------------------------------------------
     main_frame = ttk.Frame(root, padding=10, borderwidth=5, relief="groove")
     main_frame.grid()
-
 
     # -------------------------------------------------------------------------
     # Sub-frames for the shared GUI that the team developed:
