@@ -17,7 +17,7 @@ def main():
       1. Makes the EV3 robot to various things.
       2. Communicates via MQTT with the GUI code that runs on the LAPTOP.
     """
-    real_thing()
+    # real_thing()
     # run_test_arm()
     # run_test_calibrate_arm()
     # run_test_move_arm_to_position(100)
@@ -35,6 +35,8 @@ def main():
     # run_test_distance_is_further_than()
     # run_test_distance_within()
     # ir_tester()
+    # led_tester()
+    led_blinker()
 
 
 def real_thing():
@@ -113,13 +115,61 @@ def run_test_distance_is_further_than():
     robot = rosebot.RoseBot()
     robot.drive_system.go_backward_until_distance_is_greater_than(30, 100)
 
+
 def run_test_distance_within():
     robot = rosebot.RoseBot()
     robot.drive_system.go_until_distance_is_within(.5, 7, 100)
 
+
 def ir_tester():
     robot = rosebot.RoseBot()
     print(robot.sensor_system.ir_proximity_sensor.get_distance_in_inches())
+
+
+def led_tester():
+    robot = rosebot.RoseBot()
+    while True:
+        robot.led_system.left_led.set_color_by_fractions(.33, .67)
+        robot.led_system.right_led.turn_on()
+        time.sleep(2)
+        robot.led_system.left_led.turn_off()
+        robot.led_system.right_led.turn_off()
+        time.sleep(2)
+
+
+def led_blinker():
+    robot = rosebot.RoseBot()
+    robot.arm_and_claw.calibrate_arm()
+    robot.drive_system.go(25, 25)
+    while True:
+        d = robot.sensor_system.ir_proximity_sensor.get_distance_in_inches()
+        print(d)
+        robot.led_system.left_led.turn_on()
+        time.sleep(d / 100)
+        d = robot.sensor_system.ir_proximity_sensor.get_distance_in_inches()
+        print(d)
+        robot.led_system.left_led.turn_off()
+        robot.led_system.right_led.turn_on()
+        time.sleep(d / 100)
+        d = robot.sensor_system.ir_proximity_sensor.get_distance_in_inches()
+        print(d)
+        robot.led_system.left_led.turn_on()
+        time.sleep(d / 100)
+        d = robot.sensor_system.ir_proximity_sensor.get_distance_in_inches()
+        print(d)
+        robot.led_system.left_led.turn_off()
+        robot.led_system.right_led.turn_off()
+        time.sleep(d / 100)
+        d = robot.sensor_system.ir_proximity_sensor.get_distance_in_inches()
+        print(d)
+
+        if d <= 6:
+            robot.drive_system.stop()
+            robot.arm_and_claw.raise_arm()
+            robot.led_system.right_led.turn_off()
+            robot.led_system.left_led.turn_off()
+
+
 # -----------------------------------------------------------------------------
 # Calls  main  to start the ball rolling.
 # -----------------------------------------------------------------------------
