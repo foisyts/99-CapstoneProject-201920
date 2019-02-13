@@ -6,6 +6,8 @@
     and Tristen Foisy, Tommy Hoevener, Sam Hedrick.
   Winter term, 2018-2019.
 """
+import time
+import m1_extra
 
 
 class DelegateThatReceives(object):
