@@ -36,7 +36,7 @@ def main():
     # run_test_distance_within()
     # ir_tester()
     # led_tester()
-    led_blinker()
+    led_blinker(2, 5)
 
 
 def real_thing():
@@ -137,31 +137,26 @@ def led_tester():
         time.sleep(2)
 
 
-def led_blinker():
+def led_blinker(initial, rate):
     robot = rosebot.RoseBot()
     robot.arm_and_claw.calibrate_arm()
     robot.drive_system.go(25, 25)
     while True:
         d = robot.sensor_system.ir_proximity_sensor.get_distance_in_inches()
-        print(d)
         robot.led_system.left_led.turn_on()
-        time.sleep(d / 100)
+        time.sleep(initial * (1 - ((122-d) / 122 + rate)))
         d = robot.sensor_system.ir_proximity_sensor.get_distance_in_inches()
-        print(d)
         robot.led_system.left_led.turn_off()
         robot.led_system.right_led.turn_on()
-        time.sleep(d / 100)
+        time.sleep(initial * (1 - ((122-d) / 122 + rate)))
         d = robot.sensor_system.ir_proximity_sensor.get_distance_in_inches()
-        print(d)
         robot.led_system.left_led.turn_on()
-        time.sleep(d / 100)
+        time.sleep(initial * (1 - ((122-d) / 122 + rate)))
         d = robot.sensor_system.ir_proximity_sensor.get_distance_in_inches()
-        print(d)
         robot.led_system.left_led.turn_off()
         robot.led_system.right_led.turn_off()
-        time.sleep(d / 100)
+        time.sleep(initial * (1 - ((122-d) / 122 + rate)))
         d = robot.sensor_system.ir_proximity_sensor.get_distance_in_inches()
-        print(d)
 
         if d <= 6:
             robot.drive_system.stop()
