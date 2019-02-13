@@ -38,8 +38,6 @@ def main():
     # -------------------------------------------------------------------------
     main_frame = ttk.Frame(root, padding=10, borderwidth=5, relief="groove")
     main_frame.grid()
-    second_frame = ttk.Frame(root, padding=10, borderwidth=7)
-    second_frame.grid()
 
     # -------------------------------------------------------------------------
     # Sub-frames for the shared GUI that the team developed:
