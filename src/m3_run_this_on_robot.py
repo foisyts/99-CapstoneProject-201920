@@ -37,7 +37,7 @@ def main():
     # ir_tester()
     # led_tester()
     led_blinker(2, 5)
-
+    # distance_tester()
 
 def real_thing():
     robot = rosebot.RoseBot()
@@ -108,7 +108,7 @@ def run_test_color_is_not():
 
 def run_test_distance_is_less_than():
     robot = rosebot.RoseBot()
-    robot.drive_system.go_forward_until_distance_is_less_than(8, 100)
+    robot.drive_system.go_forward_until_distance_is_less_than(5, 100)
 
 
 def run_test_distance_is_further_than():
@@ -144,18 +144,18 @@ def led_blinker(initial, rate):
     while True:
         d = robot.sensor_system.ir_proximity_sensor.get_distance_in_inches()
         robot.led_system.left_led.turn_on()
-        time.sleep(initial * (1 - ((122-d) / 133 - rate)))
+        time.sleep(initial * (1 - ((19-d) / 28 - rate)))
         d = robot.sensor_system.ir_proximity_sensor.get_distance_in_inches()
         robot.led_system.left_led.turn_off()
         robot.led_system.right_led.turn_on()
-        time.sleep(initial * (1 - ((122-d) / 133 - rate)))
+        time.sleep(initial * (1 - ((19-d) / 28 - rate)))
         d = robot.sensor_system.ir_proximity_sensor.get_distance_in_inches()
         robot.led_system.left_led.turn_on()
-        time.sleep(initial * (1 - ((122-d) / 133 - rate)))
+        time.sleep(initial * (1 - ((19-d) / 28 - rate)))
         d = robot.sensor_system.ir_proximity_sensor.get_distance_in_inches()
         robot.led_system.left_led.turn_off()
         robot.led_system.right_led.turn_off()
-        time.sleep(initial * (1 - ((122-d) / 133 - rate)))
+        time.sleep(initial * (1 - ((19-d) / 28 - rate)))
         d = robot.sensor_system.ir_proximity_sensor.get_distance_in_inches()
 
         if d <= 6:
@@ -164,6 +164,10 @@ def led_blinker(initial, rate):
             robot.led_system.right_led.turn_off()
             robot.led_system.left_led.turn_off()
 
+def distance_tester():
+    robot = rosebot.RoseBot()
+    while True:
+        robot.sensor_system.ir_proximity_sensor.get_distance_in_inches()
 
 # -----------------------------------------------------------------------------
 # Calls  main  to start the ball rolling.
