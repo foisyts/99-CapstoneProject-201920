@@ -36,8 +36,11 @@ def main():
     # run_test_distance_within()
     # ir_tester()
     # led_tester()
-    led_blinker(2, 5)
+    # led_blinker(2, 5)
     # distance_tester()
+    # camera_tester()
+    spin_clockwise()
+    # spin_counter_clockwise()
 
 def real_thing():
     robot = rosebot.RoseBot()
@@ -168,6 +171,19 @@ def distance_tester():
     robot = rosebot.RoseBot()
     while True:
         robot.sensor_system.ir_proximity_sensor.get_distance_in_inches()
+        time.sleep(.2)
+
+def camera_tester():
+    robot = rosebot.RoseBot()
+    robot.drive_system.display_camera_data()
+
+def spin_clockwise():
+    robot = rosebot.RoseBot()
+    robot.drive_system.spin_clockwise_until_sees_object(10, 10)
+
+def spin_counter_clockwise():
+    robot = rosebot.RoseBot()
+    robot.drive_system.spin_counterclockwise_until_sees_object(10, 10)
 
 # -----------------------------------------------------------------------------
 # Calls  main  to start the ball rolling.
