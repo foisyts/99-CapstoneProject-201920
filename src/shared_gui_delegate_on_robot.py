@@ -9,6 +9,7 @@
 import time
 import m1_extra
 import m2_extra as m2
+import m3_extra as m3
 
 
 class DelegateThatReceives(object):
@@ -117,3 +118,8 @@ class DelegateThatReceives(object):
     def tone_picker_upper(self, initial_frequency, rate):
         print('Running tone_picker_upper')
         m2.run_test_pick_up_with_tones(int(initial_frequency), int(rate))
+
+    #Sam's functions
+    def led_picker_upper(self, initial, rate):
+        print('Running LED picker-upper')
+        m3.run_test_led_blinker(int(initial), int(rate))
