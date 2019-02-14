@@ -4,7 +4,7 @@ import time
 
 def run_test_pick_up_with_tones(initial_frequency, rate):
     robot = rosebot.RoseBot()
-    robot.arm_and_claw.calibrate_arm()
+    # robot.arm_and_claw.calibrate_arm()
     speed = 50
     robot.drive_system.go(speed, speed)
     max_freq = (initial_frequency + 19 * rate) * 2
