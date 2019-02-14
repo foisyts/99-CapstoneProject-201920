@@ -10,6 +10,7 @@ import time
 import m1_extra
 import m2_extra as m2
 import m3_extra as m3
+import m1_extra as m1
 
 
 class DelegateThatReceives(object):
@@ -88,7 +89,6 @@ class DelegateThatReceives(object):
     def go_until_distance_is_within(self, delta, inches, speed):
         self.robot.drive_system.go_until_distance_is_within(float(delta), float(inches), int(speed))
 
-
     # Camera
     def display_camera_data(self):
         self.robot.drive_system.display_camera_data()
@@ -119,7 +119,12 @@ class DelegateThatReceives(object):
         print('Running tone_picker_upper')
         m2.run_test_pick_up_with_tones(int(initial_frequency), int(rate))
 
-    #Sam's functions
+    # Sam's functions
     def led_picker_upper(self, initial, rate):
         print('Running LED picker-upper')
         m3.led_blinker(int(initial), int(rate))
+
+    # Tristen's functions
+    def beeper_picker_upper(self, initial, rate_of_increase):
+        print('Running beeper picker-upper')
+        m1.drive_and_beep_with_ir(int(initial), int(rate_of_increase))
