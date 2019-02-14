@@ -18,7 +18,7 @@ def main():
       2. Communicates via MQTT with the GUI code that runs on the LAPTOP.
     """
     # run_test_pick_up_with_tones(300, 8)
-    # real_thing()
+    real_thing()
 
 
 def real_thing():
@@ -26,8 +26,11 @@ def real_thing():
     delegate_that_receives = shared_gui_delegate_on_robot.DelegateThatReceives(robot)
     mqtt_receiver = com.MqttClient(delegate_that_receives)
     mqtt_receiver.connect_to_pc()
+
     while True:
         time.sleep(0.01)
+        if delegate_that_receives.is_time_to_stop:
+            break
 
 
 def run_test_pick_up_with_tones(initial_frequency, rate):

@@ -8,7 +8,7 @@
 """
 import time
 import m1_extra
-import m2_run_this_on_robot as m2
+import m2_extra as m2
 
 
 class DelegateThatReceives(object):
