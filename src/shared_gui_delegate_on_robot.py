@@ -122,4 +122,4 @@ class DelegateThatReceives(object):
     #Sam's functions
     def led_picker_upper(self, initial, rate):
         print('Running LED picker-upper')
-        m3.run_test_led_blinker(int(initial), int(rate))
+        m3.led_blinker(int(initial), int(rate))
