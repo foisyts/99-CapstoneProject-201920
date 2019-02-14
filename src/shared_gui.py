@@ -252,6 +252,8 @@ def get_drive_system_frame(window, mqtt_sender):
                                                                                                             inches_entry_2,
                                                                                                             speed_entry)
 
+    display_camera_button["command"] = lambda: handle_display_camera()
+
     return frame
 
 
@@ -479,6 +481,10 @@ def handle_go_until_distance_is_within(mqtt_sender, delta_entry, inches_entry_2,
     mqtt_sender.send_message('go_until_distance_is_within',
                              [delta_entry.get(), inches_entry_2.get(), speed_entry.get()])
 
+
+def handle_display_camera(mqtt_sender):
+    print('Printing camera data:')
+    mqtt_sender.send_message('display_camera_data')
 
 ###############################################################################
 # Handlers for Buttons in the Sound System.
