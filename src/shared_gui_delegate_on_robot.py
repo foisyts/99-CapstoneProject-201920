@@ -87,6 +87,9 @@ class DelegateThatReceives(object):
     def go_until_distance_is_within(self, delta, inches, speed):
         self.robot.drive_system.go_until_distance_is_within(float(delta), float(inches), int(speed))
 
+    def display_camera_data(self):
+        self.robot.drive_system.display_camera_data()
+
     # SoundSystem
     def beep_n_times(self, n):
         # print('I will beep', int(n), 'times at', frequency)
