@@ -187,7 +187,7 @@ def get_drive_system_frame(window, mqtt_sender):
     go_until_dist_within = ttk.Button(frame, text='Move until distance is close to')
     display_camera_button = ttk.Button(frame, text='Display camera input')
     clockwise_until_sees_object = ttk.Button(frame, text='Spin clockwise until object with area is seen')
-    counterclockwise_until_sees_object = ttk.Button(frame, text='Spin clockwise until object with area is seen')
+    counterclockwise_until_sees_object = ttk.Button(frame, text='Spin counterclockwise until object with area is seen')
 
     frame_label.grid(row=0, column=1)
     speed_label.grid(row=1, column=1)
@@ -253,6 +253,11 @@ def get_drive_system_frame(window, mqtt_sender):
                                                                                                             speed_entry)
 
     display_camera_button["command"] = lambda: handle_display_camera(mqtt_sender)
+    clockwise_until_sees_object["command"] = lambda: handle_spin_clockwise_until_area(mqtt_sender, speed_entry,
+                                                                                      area_entry)
+    counterclockwise_until_sees_object["command"] = lambda: handle_spin_counterclockwise_until_area(mqtt_sender,
+                                                                                                    speed_entry,
+                                                                                                    area_entry)
 
     return frame
 
@@ -490,6 +495,11 @@ def handle_display_camera(mqtt_sender):
 def handle_spin_counterclockwise_until_area(mqtt_sender, speed_entry, area_entry):
     print('Spinning counterclockwise at speed', speed_entry.get(), 'until object of area', area_entry.get, 'is seen')
     mqtt_sender.send_message('spin_counterclockwise_until_area', [speed_entry.get(), area_entry.get()])
+
+
+def handle_spin_clockwise_until_area(mqtt_sender, speed_entry, area_entry):
+    print('Spinning clockwise at speed', speed_entry.get(), 'until object of area', area_entry.get, 'is seen')
+    mqtt_sender.send_message('spin_clockwise_until_area', [speed_entry.get(), area_entry.get()])
 
 ###############################################################################
 # Handlers for Buttons in the Sound System.
