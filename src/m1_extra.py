@@ -7,11 +7,12 @@ def drive_and_beep_with_ir(initial, rate_of_increase):
     robot = rosebot.RoseBot()
     # robot.arm_and_claw.calibrate_arm()
     robot.drive_system.go(50, 50)
+    id = robot.sensor_system.ir_proximity_sensor.get_distance_in_inches()
     while True:
         distance = robot.sensor_system.ir_proximity_sensor.get_distance_in_inches()
         robot.sound_system.beep()
-        sleep = m3.get_sleep(initial, rate_of_increase)
-        time.sleep(sleep / 10)
+        sleep = m3.get_sleep(robot, initial, rate_of_increase, id)
+        time.sleep(sleep)
         if distance <= 2:
             break
     robot.drive_system.stop()
