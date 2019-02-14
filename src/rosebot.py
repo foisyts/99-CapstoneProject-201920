@@ -297,6 +297,7 @@ class DriveSystem(object):
             blob = self.sensor_system.camera.get_biggest_blob()
             print(blob)
             time.sleep(.2)
+            break
 
     def spin_clockwise_until_sees_object(self, speed, area):
         """

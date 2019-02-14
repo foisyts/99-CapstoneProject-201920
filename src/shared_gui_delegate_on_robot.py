@@ -90,6 +90,7 @@ class DelegateThatReceives(object):
     def display_camera_data(self):
         self.robot.drive_system.display_camera_data()
 
+
     # SoundSystem
     def beep_n_times(self, n):
         # print('I will beep', int(n), 'times at', frequency)
