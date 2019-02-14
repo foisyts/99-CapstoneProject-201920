@@ -17,7 +17,7 @@ def main():
       1. Makes the EV3 robot to various things.
       2. Communicates via MQTT with the GUI code that runs on the LAPTOP.
     """
-    run_test_pick_up_with_tones(300, 8)
+    # run_test_pick_up_with_tones(300, 8)
     # real_thing()
 
 
@@ -35,13 +35,13 @@ def run_test_pick_up_with_tones(initial_frequency, rate):
     robot.arm_and_claw.calibrate_arm()
     speed = 50
     robot.drive_system.go(speed, speed)
-    max_freq = initial_frequency + 122 * rate
+    max_freq = (initial_frequency + 19 * rate) * 2
     while True:
         d = robot.sensor_system.ir_proximity_sensor.get_distance_in_inches()
-        robot.sound_system.tone(100, max_freq - d * rate)
+        robot.sound_system.tone(100, max_freq - 2 * d * rate)
         print(max_freq - d * rate)
         time.sleep(0.2)
-        if d <= 5:
+        if d <= 2:
             break
     robot.drive_system.stop()
     robot.arm_and_claw.raise_arm()

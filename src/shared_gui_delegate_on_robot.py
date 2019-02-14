@@ -8,6 +8,7 @@
 """
 import time
 import m1_extra
+import m2_run_this_on_robot as m2
 
 
 class DelegateThatReceives(object):
@@ -100,3 +101,8 @@ class DelegateThatReceives(object):
     def speak_a_phrase(self, phrase):
         print('I will now speak the phrase', phrase)
         self.robot.sound_system.speak(phrase)
+
+    # Tommy's functions
+    def tone_picker_upper(self, initial_frequency, rate):
+        print('Running tone_picker_upper')
+        m2.run_test_pick_up_with_tones(int(initial_frequency), int(rate))
