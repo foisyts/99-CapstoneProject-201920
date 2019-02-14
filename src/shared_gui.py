@@ -252,7 +252,7 @@ def get_drive_system_frame(window, mqtt_sender):
                                                                                                             inches_entry_2,
                                                                                                             speed_entry)
 
-    display_camera_button["command"] = lambda: handle_display_camera()
+    display_camera_button["command"] = lambda: handle_display_camera(mqtt_sender)
 
     return frame
 
