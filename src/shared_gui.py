@@ -486,6 +486,11 @@ def handle_display_camera(mqtt_sender):
     print('Printing camera data:')
     mqtt_sender.send_message('display_camera_data')
 
+
+def handle_spin_counterclockwise_until_area(mqtt_sender, speed_entry, area_entry):
+    print('Spinning counterclockwise at speed', speed_entry.get(), 'until object of area', area_entry.get, 'is seen')
+    mqtt_sender.send_message('spin_counterclockwise_until_area', [speed_entry.get(), area_entry.get()])
+
 ###############################################################################
 # Handlers for Buttons in the Sound System.
 ###############################################################################
