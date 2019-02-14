@@ -87,9 +87,16 @@ class DelegateThatReceives(object):
     def go_until_distance_is_within(self, delta, inches, speed):
         self.robot.drive_system.go_until_distance_is_within(float(delta), float(inches), int(speed))
 
+
+    # Camera
     def display_camera_data(self):
         self.robot.drive_system.display_camera_data()
+        
+    def spin_counterclockwise_until_area(self, speed, area):
+        self.robot.drive_system.spin_counterclockwise_until_sees_object(int(speed), int(area))
 
+    def spin_clockwise_until_area(self, speed, area):
+        self.robot.drive_system.spin_clockwise_until_sees_object(int(speed), int(area))
 
     # SoundSystem
     def beep_n_times(self, n):
