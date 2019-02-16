@@ -19,26 +19,93 @@ def run_test_pick_up_with_tones(initial_frequency, rate):
     robot.arm_and_claw.raise_arm()
 
 
-##################################################
+############################################################
+############################################################
 # Sprint 3 personal project
-##################################################
+############################################################
+############################################################
+
+
+##############################################
+# Movement functions
+##############################################
 
 def go_to_floor_color_and_turn(robot, color):
+    # Robot goes to the correct "ingredient" color mat
+    #   located on the floor using the color sensor
+    #   then turns 90 degrees counterclockwise to position
+    #   itself toward the correct pile of ingredients.
+    # Sensors: color sensor
     speed = 70
     robot.drive_system.go_straight_until_color_is(color, speed)
     turn_90_degrees_counterclockwise(robot)
 
 
+def go_and_pick_up_the_ingredient(robot):
+    # Goes to pile of ingredients and grabs it
+    # Sensors: encoder, touch, IR
+    robot.drive_system.go_until_distance_is_within(0.5, 2, 60)
+    robot.arm_and_claw.raise_arm()
+    robot.drive_system.go_straight_for_inches_using_encoder(7, -30)
+    turn_90_degrees_counterclockwise(robot)
+
+
+def go_and_place_ingredient_in_bowl(robot, ingredient_distance):
+    # Goes to bowl and drops ingredient
+    # Sensors: encoder
+    robot.drive_system.go_straight_for_inches_using_encoder(ingredient_distance, 50)
+    robot.arm_and_claw.lower_arm()
+    turn_90_degrees_counterclockwise(robot)
+
+
+def return_to_origin(robot):
+    # Returns the robot to the original starting spot
+    # Sensors: IR
+    robot.drive_system.go_until_distance_is_within(0.1, 4, 70)
+    turn_90_degrees_counterclockwise(robot)
+
+
+##############################################
+# Mini-functions used in movement functions
+##############################################
+
+def determine_ingredient_distance(color):
+    # Determines distance needed for encoder
+    #   in go_and_place_ingredient_in_bowl function
+    if color is 'red':
+        ingredient_distance = 10
+    elif color is 'yellow':
+        ingredient_distance = 20
+    elif color is 'blue':
+        ingredient_distance = 30
+    elif color is 'green':
+        ingredient_distance = 40
+    return ingredient_distance
+
+
 def turn_90_degrees_counterclockwise(robot):
+    # Turns the robot by 90 degrees counterclockwise
     robot.drive_system.go(-30, 30)
     time.sleep(1)
     # need to figure out accurate time sleep based on speed given
     robot.drive_system.stop()
 
 
-def go_and_pick_up_the_ingredient(robot):
+###############################################
+# Recipe Maker functions
+###############################################
 
+
+###############################################
+# Main function
+###############################################
 
 def lets_get_this_bread(color, other):
     robot = rosebot.RoseBot()
+    ingredient_distance = determine_ingredient_distance(color)
+    robot.sound_system.speak('Coming right up! Just let me calibrate my arm first!')
+    robot.arm_and_claw.calibrate_arm()
+    robot.sound_system.speak('All done')
     go_to_floor_color_and_turn(robot, color)
+    go_and_place_ingredient_in_bowl(robot, ingredient_distance)
+    return_to_origin(robot)
