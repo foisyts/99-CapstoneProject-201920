@@ -13,6 +13,7 @@ from tkinter import ttk
 import shared_gui
 
 
+
 def main():
     """
     This code, which must run on a LAPTOP:
@@ -30,6 +31,7 @@ def main():
     # -------------------------------------------------------------------------
     root = tkinter.Tk()
     root.title("CSSE 120 Capstone Project, Winter 2018-19")
+    root.config(bg='green')
 
     # -------------------------------------------------------------------------
     # The main frame, upon which the other frames are placed.
@@ -53,7 +55,8 @@ def main():
     # -------------------------------------------------------------------------
     # grid_frames(teleop_frame, arm_frame, control_frame, drive_system_frame, sound_system_frame, led_frame)
     football = football_frame(main_frame, mqtt_sender)
-    football.grid(row=1, column=1)
+    football.grid(row=2, column=2)
+
     # -------------------------------------------------------------------------
     # The event loop:
     # -------------------------------------------------------------------------
@@ -82,7 +85,7 @@ def grid_frames(teleop_frame, arm_frame, control_frame, drive_system_frame, soun
 
 def get_sams_frame(window, mqtt_sender):
     # Construct the frame to return:
-    frame = ttk.Frame(window, padding=10, borderwidth=5, relief="ridge")
+    frame = ttk.Frame(window, padding=10, borderwidth=5, relief="ridge", bg='#00ff00')
     frame.grid()
 
     # Construct the widgets on the frame:
@@ -114,10 +117,10 @@ def handle_led_picker_upper(mqtt_sender, initial_entry, rate_entry):
 
 
 def football_frame(window, mqtt_sender):
-    frame = ttk.Frame(window, padding=10, borderwidth=5, relief="ridge")
+    frame = ttk.Frame(window, padding=50, borderwidth=100, relief="ridge")
     frame.grid()
 
-    frame_label = ttk.Label(frame, text='Football Bot', font='Arial 18 bold')
+    frame_label = ttk.Label(frame, text='Football Bot', font='Arial 18 bold', background='green')
     fumble_button = ttk.Button(frame, text='Recover the fumble!')
     juke_button = ttk.Button(frame, text='Juke Defender')
     celebrate_button = ttk.Button(frame, text='Celebrate the Touchdown')
@@ -136,7 +139,6 @@ def football_frame(window, mqtt_sender):
 
     return frame
 
-
 def handle_fumble(mqtt_sender):
     print("FUMBLE!")
     mqtt_sender.send_message('fumble')
@@ -147,7 +149,7 @@ def handle_juke(mqtt_sender):
 
 
 def handle_celebrate(mqtt_sender):
-    print('Touchdown!')
+    print('Touchdown!!')
     mqtt_sender.send_message('celebration')
 
 
