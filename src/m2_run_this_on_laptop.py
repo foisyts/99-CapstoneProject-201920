@@ -47,7 +47,6 @@ def main():
     # -------------------------------------------------------------------------
     # Frames that are particular to my individual contributions to the project.
     # -------------------------------------------------------------------------
-    # TODO: Implement and call get_my_frames(...)
 
     # -------------------------------------------------------------------------
     # Grid the frames.
@@ -108,6 +107,10 @@ def get_tommys_frame(window, mqtt_sender):
                                                                            rate_entry)
 
     return frame
+
+    # #######################################################
+    # Write all the handlers down here
+    # #######################################################
 
 
 def handle_tone_picker_upper(mqtt_sender, initial_frequency_entry, rate_entry):
