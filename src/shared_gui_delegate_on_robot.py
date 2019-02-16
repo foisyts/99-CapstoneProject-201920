@@ -124,6 +124,18 @@ class DelegateThatReceives(object):
         print('Running LED picker-upper')
         m3.led_blinker(int(initial), int(rate))
 
+    def fumble(self):
+        print('FUMBLE!')
+
+    def juke(self):
+        print('Get juked!')
+
+    def celebration(self):
+        print('Touchdown!!')
+    
+    def shake(self):
+        print('Good Game.')
+
     # Tristen's functions
     def beeper_picker_upper(self, initial, rate_of_increase):
         print('Running beeper picker-upper')

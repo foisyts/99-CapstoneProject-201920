@@ -40,8 +40,8 @@ def main():
     # -------------------------------------------------------------------------
     # Sub-frames for the shared GUI that the team developed:
     # -------------------------------------------------------------------------
-    teleop_frame, arm_frame, control_frame, drive_system_frame, sound_system_frame, led_frame = get_shared_frames(main_frame,
-                                                                                                       mqtt_sender)
+    # teleop_frame, arm_frame, control_frame, drive_system_frame, sound_system_frame, led_frame = get_shared_frames(main_frame,
+    # mqtt_sender)
 
     # -------------------------------------------------------------------------
     # Frames that are particular to my individual contributions to the project.
@@ -51,8 +51,9 @@ def main():
     # -------------------------------------------------------------------------
     # Grid the frames.
     # -------------------------------------------------------------------------
-    grid_frames(teleop_frame, arm_frame, control_frame, drive_system_frame, sound_system_frame, led_frame)
-
+    # grid_frames(teleop_frame, arm_frame, control_frame, drive_system_frame, sound_system_frame, led_frame)
+    football = football_frame(main_frame, mqtt_sender)
+    football.grid(row=1, column=1)
     # -------------------------------------------------------------------------
     # The event loop:
     # -------------------------------------------------------------------------
@@ -110,6 +111,49 @@ def get_sams_frame(window, mqtt_sender):
 def handle_led_picker_upper(mqtt_sender, initial_entry, rate_entry):
     print("Picking up with LED.")
     mqtt_sender.send_message("led_picker_upper", [initial_entry.get(), rate_entry.get()])
+
+
+def football_frame(window, mqtt_sender):
+    frame = ttk.Frame(window, padding=10, borderwidth=5, relief="ridge")
+    frame.grid()
+
+    frame_label = ttk.Label(frame, text='Football Bot', font='Arial 18 bold')
+    fumble_button = ttk.Button(frame, text='Recover the fumble!')
+    juke_button = ttk.Button(frame, text='Juke Defender')
+    celebrate_button = ttk.Button(frame, text='Celebrate the Touchdown')
+    shake_button = ttk.Button(frame, text='Good game')
+
+    frame_label.grid(row=0, column=1)
+    fumble_button.grid(row=3, column=1)
+    juke_button.grid(row=4, column=1)
+    celebrate_button.grid(row=5, column=1)
+    shake_button.grid(row=6, column=1)
+
+    fumble_button["command"] = lambda: handle_fumble(mqtt_sender)
+    juke_button["command"] = lambda: handle_juke(mqtt_sender)
+    celebrate_button["command"] = lambda: handle_celebrate(mqtt_sender)
+    shake_button["command"] = lambda: handle_shake(mqtt_sender)
+
+    return frame
+
+
+def handle_fumble(mqtt_sender):
+    print("FUMBLE!")
+    mqtt_sender.send_message('fumble')
+
+def handle_juke(mqtt_sender):
+    print('Get juked!')
+    mqtt_sender.send_message('juke')
+
+
+def handle_celebrate(mqtt_sender):
+    print('Touchdown!')
+    mqtt_sender.send_message('celebration')
+
+
+def handle_shake(mqtt_sender):
+    print('Good game.')
+    mqtt_sender.send_message('shake')
 
 
 # -----------------------------------------------------------------------------
