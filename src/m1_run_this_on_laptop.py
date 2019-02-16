@@ -11,7 +11,7 @@ import mqtt_remote_method_calls as com
 import tkinter
 from tkinter import ttk
 import shared_gui
-import rosebot
+
 
 
 def main():
@@ -43,20 +43,20 @@ def main():
     # -------------------------------------------------------------------------
     # Sub-frames for the shared GUI that the team developed:
     # -------------------------------------------------------------------------
-    teleop_frame, arm_frame, control_frame, drive_system_frame, sound_system_frame, feature_9_frame = get_shared_frames(
-        main_frame,
-        mqtt_sender)
+    # teleop_frame, arm_frame, control_frame, drive_system_frame, sound_system_frame, feature_9_frame = get_shared_frames(
+    #     main_frame,
+    #     mqtt_sender)
 
     # -------------------------------------------------------------------------
     # Frames that are particular to my individual contributions to the project.
     # -------------------------------------------------------------------------
     # TODO: Implement and call get_my_frames(...)
-
+    mario_kart = mario_kart_120_window(main_frame, mqtt_sender)
 
     # -------------------------------------------------------------------------
     # Grid the frames.
     # -------------------------------------------------------------------------
-    grid_frames(teleop_frame, arm_frame, control_frame, drive_system_frame, sound_system_frame, feature_9_frame)
+    # grid_frames(teleop_frame, arm_frame, control_frame, drive_system_frame, sound_system_frame, feature_9_frame)
 
     # -------------------------------------------------------------------------
     # The event loop:
@@ -112,6 +112,59 @@ def feature_9_window(window, mqtt_sender):
 
     return frame
 
+
+def mario_kart_120_window(window, mqtt_sender):
+    frame = ttk.Frame(window, padding=10, borderwidth=5, relief="ridge")
+    frame.grid()
+
+    title_label = ttk.Label(frame, text="---------- Mario Kart 120 ----------", font='Arial 13 bold')
+    title_image = title_picture(frame)
+    start_button = ttk.Button(frame, text='Start Game!')
+    blank_label = ttk.Label(frame, text='')
+
+    title_label.grid(row=0, column=0)
+    title_image.grid(row=1, column=0)
+    blank_label.grid(row=2, column=0)
+    start_button.grid(row=3, column=0)
+
+    start_button["command"] = lambda: course_selection(frame, window, mqtt_sender)
+    return frame
+
+
+def title_picture(window):
+    # path = r'C:\Users\foisyts\Pictures\Saved Pictures\mario_kart_title.png'
+    # img = ImageTk.PhotoImage(Image.open(path))
+    # title_image = ttk.Label(window, image=img)
+    path = 'mario_kart_title.gif'
+
+    # Creates a Tkinter-compatible photo image, which can be used everywhere Tkinter expects an image object.
+    img = tkinter.PhotoImage(file=path)
+
+    # The Label widget is a standard Tkinter widget used to display a text or image on the screen.
+    panel = ttk.Label(window, image=img)
+    panel.image = img
+
+    # The Pack geometry manager packs widgets in rows or columns.
+    # panel.pack(side="bottom", fill="both", expand="yes")
+    return panel
+
+
+def course_selection(last_frame, window, mqtt_sender):
+    last_frame.destroy()
+
+    frame = ttk.Frame(window, padding=10, borderwidth=5, relief="ridge")
+    frame.grid()
+
+    title_label = ttk.Label(frame, text="--- Choose a Racetrack ---", font='Arial 13 bold')
+
+    title_label.grid(row=0, column=0)
+    return frame
+
+
+def get_course_displays(window):
+    path_rainbow =
+    path2 =
+    path3 = 
 
 def feature_9_movement(mqtt_sender, initial_entry, rate_of_increase_entry):
     print("test")
