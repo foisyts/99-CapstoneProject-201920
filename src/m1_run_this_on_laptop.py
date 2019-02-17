@@ -157,7 +157,7 @@ def course_selection(last_frame, window, mqtt_sender):
 
     title_label.grid(row=0, column=1)
     get_course_displays(frame)
-    get_radiobuttons(frame)
+    get_radiobuttons(frame, window, mqtt_sender)
 
     return frame
 
@@ -184,7 +184,8 @@ def grid_courses(course1, course2, course3):
     course3.grid(row=1, column=2)
 
 
-def get_radiobuttons(window):
+def get_radiobuttons(window, big_window, mqtt_sender):
+    radio_observer = tkinter.StringVar()
     radio_1 = ttk.Radiobutton(window, value='koopa')
     radio_2 = ttk.Radiobutton(window, value='bowser')
     radio_3 = ttk.Radiobutton(window, value='rainbow')
@@ -192,10 +193,13 @@ def get_radiobuttons(window):
     create_course_labels(window)
     grid_radiobuttons(radio_1, radio_2, radio_3)
     empty_label(window)
-    radio_observer = tkinter.StringVar()
+
     for radio in [radio_1, radio_2, radio_3]:
         radio['variable'] = radio_observer
+
     race_button.grid(row=5, column=1)
+
+    race_button["command"] = lambda: race_time(window, big_window, radio_observer.get(), mqtt_sender)
 
 
 def grid_radiobuttons(radio_1, radio_2, radio_3):
@@ -217,9 +221,36 @@ def empty_label(window):
     empty_label = ttk.Label(window, text='')
     empty_label.grid(row=4, column=1)
 
+
 def feature_9_movement(mqtt_sender, initial_entry, rate_of_increase_entry):
     print("test")
     mqtt_sender.send_message("beeper_picker_upper", [initial_entry.get(), rate_of_increase_entry.get()])
+
+
+def race_time(window, big_window, radio_observer, mqtt_sender):
+    observer = radio_observer
+    if observer == 'koopa':
+        print('koopa')
+    elif observer == 'bowser':
+        create_bowser_track(window, big_window, mqtt_sender)
+    elif observer == 'rainbow':
+        print('rainbow')
+    else:
+        print('Choose a racetrack!')
+
+
+def create_bowser_track(last_frame, window, mqtt_sender):
+    last_frame.destroy()
+    frame = ttk.Frame(window, padding=10, borderwidth=5, relief="ridge")
+    frame.grid()
+
+    img_track = tkinter.PhotoImage(file='bowserscastle_track.gif')
+    panel_track = ttk.Label(window, image=img_track)
+    panel_track.image = img_track
+
+    bowser_label = ttk.Label(window, text="----Bowser's Castle----", font='Arial 13 bold')
+    bowser_label.grid(row=0, column=0)
+    panel_track.grid(row=1, column=0)
 
 
 # -----------------------------------------------------------------------------
