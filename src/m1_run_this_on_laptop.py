@@ -13,7 +13,6 @@ from tkinter import ttk
 import shared_gui
 
 
-
 def main():
     """
     This code, which must run on a LAPTOP:
@@ -151,20 +150,72 @@ def title_picture(window):
 
 def course_selection(last_frame, window, mqtt_sender):
     last_frame.destroy()
-
     frame = ttk.Frame(window, padding=10, borderwidth=5, relief="ridge")
     frame.grid()
 
     title_label = ttk.Label(frame, text="--- Choose a Racetrack ---", font='Arial 13 bold')
 
-    title_label.grid(row=0, column=0)
+    title_label.grid(row=0, column=1)
+    get_course_displays(frame)
+    get_radiobuttons(frame)
+
     return frame
 
 
 def get_course_displays(window):
-    path_rainbow =
-    path2 =
-    path3 = 
+    path_rainbow = 'rainbowroad_display.gif'
+    path_koopa = 'koopatroopa_display.gif'
+    path_bowser = 'Bowserscastlen64_display.gif'
+    img_rainbow = tkinter.PhotoImage(file=path_rainbow)
+    panel_rainbow = ttk.Label(window, image=img_rainbow)
+    panel_rainbow.image = img_rainbow
+    img_koopa = tkinter.PhotoImage(file=path_koopa)
+    panel_koopa = ttk.Label(window, image=img_koopa)
+    panel_koopa.image = img_koopa
+    img_bowser = tkinter.PhotoImage(file=path_bowser)
+    panel_bowser = ttk.Label(window, image=img_bowser)
+    panel_bowser.image = img_bowser
+    grid_courses(panel_koopa, panel_bowser, panel_rainbow)
+
+
+def grid_courses(course1, course2, course3):
+    course1.grid(row=1, column=0)
+    course2.grid(row=1, column=1)
+    course3.grid(row=1, column=2)
+
+
+def get_radiobuttons(window):
+    radio_1 = ttk.Radiobutton(window, value='koopa')
+    radio_2 = ttk.Radiobutton(window, value='bowser')
+    radio_3 = ttk.Radiobutton(window, value='rainbow')
+    race_button = ttk.Button(window, text="Let's Race!")
+    create_course_labels(window)
+    grid_radiobuttons(radio_1, radio_2, radio_3)
+    empty_label(window)
+    radio_observer = tkinter.StringVar()
+    for radio in [radio_1, radio_2, radio_3]:
+        radio['variable'] = radio_observer
+    race_button.grid(row=5, column=1)
+
+
+def grid_radiobuttons(radio_1, radio_2, radio_3):
+    radio_1.grid(row=3, column=0)
+    radio_2.grid(row=3, column=1)
+    radio_3.grid(row=3, column=2)
+
+
+def create_course_labels(window):
+    koopa_label = ttk.Label(window, text='Koopa Troopa Beach')
+    bowser_label = ttk.Label(window, text="Bowser's Castle")
+    rainbow_label = ttk.Label(window, text='Rainbow Road')
+    koopa_label.grid(row=2, column=0)
+    bowser_label.grid(row=2, column=1)
+    rainbow_label.grid(row=2, column=2)
+
+
+def empty_label(window):
+    empty_label = ttk.Label(window, text='')
+    empty_label.grid(row=4, column=1)
 
 def feature_9_movement(mqtt_sender, initial_entry, rate_of_increase_entry):
     print("test")
