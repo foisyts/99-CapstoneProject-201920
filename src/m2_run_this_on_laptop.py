@@ -146,11 +146,11 @@ def get_introduction_frame(window, mqtt_sender):
     v = tkinter.IntVar()
     v.set(1)
     radiobutton1 = tkinter.Radiobutton(frame, text="button 1", variable=v, value=2)
-    radiobutton2 = tkinter.Radiobutton(frame, text="button 2", variable=v, value=4)
-    # radiobutton1.grid(row=1)
-    # radiobutton2.grid(row=2)
-    radiobutton1.pack(row=1)
-    radiobutton2.pack(row=2)
+    radiobutton2 = tkinter.Radiobutton(frame, text="button 2", variable=v, value=2)
+    radiobutton1.grid(row=1)
+    radiobutton2.grid(row=2)
+    # radiobutton1.pack(row=1)
+    # radiobutton2.pack(row=2)
     # tone_picker_upper_button = ttk.Button(frame, text="Pick it up annoyingly")
     # initial_frequency_label = ttk.Label(frame, text='Initial frequency')
     # initial_frequency_entry = ttk.Entry(frame, width=8)
@@ -168,8 +168,8 @@ def get_introduction_frame(window, mqtt_sender):
     # Set the Button callbacks:
     # tone_picker_upper_button["command"] = lambda: handle_tone_picker_upper(mqtt_sender, initial_frequency_entry,
     #                                                                        rate_entry)
-    radiobutton1["command"] = print('b1 boy')
-    radiobutton2["command"] = print('b2 girl')
+    # radiobutton1["command"] = lambda: handle_radiobutton1(mqtt_sender, radiobutton1.get())
+    # radiobutton2["command"] = print('b2 girl')
 
     return frame
 
