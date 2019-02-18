@@ -129,28 +129,79 @@ def main():
     mqtt_sender.connect_to_ev3()
     root = tkinter.Tk()
     root.title("Cooking Assistant 3000")
-    main_frame = ttk.Frame(root, padding=10, borderwidth=5, relief="groove")
-    main_frame.grid()
-    introduction_frame = get_introduction_frame(main_frame, mqtt_sender)
-    grid_frames(introduction_frame)
+    main_frame1 = ttk.Frame(root, padding=10, borderwidth=5, relief="groove")
+    main_frame1.grid()
+    get_introduction_frame(main_frame1)
     root.mainloop()
+    root.quit()
+    root2 = tkinter.Tk("Cooking Assistant 3000")
+    root2.title()
+    main_frame2 = ttk.Frame(root2, padding=10, borderwidth=5, relief="groove")
+    main_frame2.grid()
+    get_game_frame(main_frame2, mqtt_sender)
+    root2.mainloop()
 
 
-def get_introduction_frame(window, mqtt_sender):
+def get_introduction_frame(window):
     # Construct the frame to return:
     frame = ttk.Frame(window, padding=10, borderwidth=5, relief="ridge")
     frame.grid()
 
     # Construct the widgets on the frame:
-    frame_label = ttk.Label(frame, text="Welcome to Cooking Assistant 3000!", font='Times')
+    frame_label = ttk.Label(frame, text="Welcome to Cooking Assistant 3000!", font='Times 20')
+    directions_label0 = ttk.Label(frame,
+                                  text='Directions:')
+    directions_label1 = ttk.Label(frame,
+                                  text='Click the "Next Customer" button to get the next order.')
+    directions_label2 = ttk.Label(frame,
+                                  text='Then, you will see the ingredients you need to have the robot get.')
+    directions_label3 = ttk.Label(frame,
+                                  text='Next, click on the correct ingredient and the robot will get it.')
+    directions_label4 = ttk.Label(frame,
+                                  text='You have 3 minutes to complete the order!')
+    directions_label5 = ttk.Label(frame,
+                                  text='Or else, the customer will get angry and leave your shop!')
+    directions_label6 = ttk.Label(frame,
+                                  text='If you click the wrong ingredient, the robot will tell you so.')
+    directions_label7 = ttk.Label(frame,
+                                  text=' ')
+    directions_label8 = ttk.Label(frame,
+                                  text='...Click NEXT to continue...')
+    next_button = ttk.Button(frame, text='NEXT')
+
+    # Grid the widgets:
+    frame_label.grid(row=0, column=1)
+    directions_label0.grid(row=1, column=0)
+    directions_label1.grid(row=1, column=1)
+    directions_label2.grid(row=2, column=1)
+    directions_label3.grid(row=3, column=1)
+    directions_label4.grid(row=4, column=1)
+    directions_label5.grid(row=5, column=1)
+    directions_label6.grid(row=6, column=1)
+    directions_label7.grid(row=7, column=1)
+    directions_label8.grid(row=4, column=2)
+    next_button.grid(row=8, column=2)
+
+    # Callback functions for the widgets
+    next_button["command"] = lambda: window.quit()
+
+    frame.grid()
+
+
+def get_game_frame(window, mqtt_sender):
+    # Construct the frame to return:
+    frame = ttk.Frame(window, padding=10, borderwidth=5, relief="ridge")
+    frame.grid()
+
+    # Construct the widgets on the frame:
+    frame_label = ttk.Label(frame, text="Welcome to Cooking Assistant 3000!", font='Times 20')
+
+    next_button = ttk.Button(frame, text='NEXT')
     v = tkinter.IntVar()
     v.set(1)
-    radiobutton1 = tkinter.Radiobutton(frame, text="button 1", variable=v, value=2)
-    radiobutton2 = tkinter.Radiobutton(frame, text="button 2", variable=v, value=2)
-    radiobutton1.grid(row=1)
-    radiobutton2.grid(row=2)
-    # radiobutton1.pack(row=1)
-    # radiobutton2.pack(row=2)
+    radiobutton1 = tkinter.Radiobutton(frame, text="Ingredient 1", variable=v, value=1, indicatoron=False)
+    radiobutton2 = tkinter.Radiobutton(frame, text="Ingredient 2", variable=v, value=2, indicatoron=False)
+
     # tone_picker_upper_button = ttk.Button(frame, text="Pick it up annoyingly")
     # initial_frequency_label = ttk.Label(frame, text='Initial frequency')
     # initial_frequency_entry = ttk.Entry(frame, width=8)
@@ -159,6 +210,10 @@ def get_introduction_frame(window, mqtt_sender):
 
     # Grid the widgets:
     frame_label.grid(row=0, column=1)
+    next_button.grid(row=8, column=2)
+    radiobutton1.grid(row=2)
+    radiobutton2.grid(row=2, column=1)
+
     # tone_picker_upper_button.grid(row=3, column=1)
     # initial_frequency_label.grid(row=1, column=0)
     # initial_frequency_entry.grid(row=2, column=0)
@@ -170,12 +225,16 @@ def get_introduction_frame(window, mqtt_sender):
     #                                                                        rate_entry)
     # radiobutton1["command"] = lambda: handle_radiobutton1(mqtt_sender, radiobutton1.get())
     # radiobutton2["command"] = print('b2 girl')
+    next_button["command"] = lambda: window.quit()
 
-    return frame
+    frame.grid()
 
 
-def grid_frames(introduction_frame):
-    introduction_frame.grid()
+########################################
+# Handlers
+########################################
+def handle_next_button(window):
+    print('HELLO')
 
 
 # -----------------------------------------------------------------------------
