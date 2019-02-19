@@ -130,15 +130,19 @@ class DelegateThatReceives(object):
 
     def fumble(self):
         print('FUMBLE!')
+        m3.fumble()
 
     def juke(self):
         print('Get juked!')
+        m3.juke()
 
     def celebration(self):
         print('Touchdown!!')
+        m3.celebrate()
 
     def shake(self):
         print('Good Game.')
+        m3.shake()
 
     # Tristen's functions
     def beeper_picker_upper(self, initial, rate_of_increase):

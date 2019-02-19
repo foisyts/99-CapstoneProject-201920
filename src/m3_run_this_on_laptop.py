@@ -117,7 +117,7 @@ def handle_led_picker_upper(mqtt_sender, initial_entry, rate_entry):
 
 
 def football_frame(window, mqtt_sender):
-    frame = ttk.Frame(window, padding=50, borderwidth=100, relief="ridge")
+    frame = tkinter.Frame(window, borderwidth=100, bg='green')
     frame.grid()
 
     frame_label = ttk.Label(frame, text='Football Bot', font='Arial 18 bold', background='green')
