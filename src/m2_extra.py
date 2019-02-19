@@ -100,8 +100,12 @@ def turn_90_degrees_counterclockwise(robot):
 # Main function
 ###############################################
 
-def lets_get_this_bread(color, bowl):
+def lets_get_this_bread(color, yeast_count, water_count, flour_count):
     robot = rosebot.RoseBot()
+    bowl = m2a.Bowl
+    bowl.yeast_count = int(yeast_count)
+    bowl.water_count = int(water_count)
+    bowl.flour_count = int(flour_count)
     bowl.add_to_the_bowl(color)
     ingredient_distance = determine_ingredient_distance(color)
     robot.sound_system.speak('Coming right up! Just let me calibrate my arm first!')

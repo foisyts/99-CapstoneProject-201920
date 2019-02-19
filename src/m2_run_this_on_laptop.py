@@ -262,17 +262,17 @@ def get_game_frame(window, mqtt_sender, prev_frame, bowl):
 ########################################
 def handle_flour(mqtt_sender, color, bowl):
     print('Getting flour now')
-    mqtt_sender.send_message("grab_ingredient", [color, bowl])
+    mqtt_sender.send_message("grab_ingredient", [color, bowl.yeast_count, bowl.water_count, bowl.flour_count])
 
 
 def handle_water(mqtt_sender, color, bowl):
     print('Getting water now')
-    mqtt_sender.send_message("grab_ingredient", [color, bowl])
+    mqtt_sender.send_message("grab_ingredient", [color, bowl.yeast_count, bowl.water_count, bowl.flour_count])
 
 
 def handle_yeast(mqtt_sender, color, bowl):
     print('Getting yeast now')
-    mqtt_sender.send_message("grab_ingredient", [color, bowl])
+    mqtt_sender.send_message("grab_ingredient", [color, bowl.yeast_count, bowl.water_count, bowl.flour_count])
 
 
 
