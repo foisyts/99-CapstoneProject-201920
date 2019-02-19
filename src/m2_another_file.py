@@ -5,8 +5,11 @@ class Bowl:
     def __init__(self):
         self.flour_count, self.water_count, self.yeast_count = initialize_variables()
 
+    def __repr__(self):
+        return 'Bowl({:.1f}, {:.1f}, {:.1f})'.format(self.flour_count, self.water_count, self.yeast_count)
+
     def add_to_the_bowl(self, color):
-        if color is 'white':
+        if color is 'pink':
             self.flour_count = self.flour_count + 1
         elif color is 'blue':
             self.water_count = self.water_count + 1
