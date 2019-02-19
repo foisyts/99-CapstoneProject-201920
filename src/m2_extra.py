@@ -1,5 +1,6 @@
 import rosebot
 import time
+import m2_another_file as m2a
 
 
 def run_test_pick_up_with_tones(initial_frequency, rate):

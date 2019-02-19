@@ -11,6 +11,7 @@ import m1_extra
 import m2_extra as m2
 import m3_extra as m3
 import m1_extra as m1
+import m2_another_file as m2a
 
 
 class DelegateThatReceives(object):
