@@ -131,18 +131,11 @@ def main():
     root.title("Cooking Assistant 3000")
     main_frame1 = ttk.Frame(root, padding=10, borderwidth=5, relief="groove")
     main_frame1.grid()
-    get_introduction_frame(main_frame1)
+    get_introduction_frame(main_frame1, mqtt_sender)
     root.mainloop()
-    root.quit()
-    root2 = tkinter.Tk("Cooking Assistant 3000")
-    root2.title()
-    main_frame2 = ttk.Frame(root2, padding=10, borderwidth=5, relief="groove")
-    main_frame2.grid()
-    get_game_frame(main_frame2, mqtt_sender)
-    root2.mainloop()
 
 
-def get_introduction_frame(window):
+def get_introduction_frame(window, mqtt_sender):
     # Construct the frame to return:
     frame = ttk.Frame(window, padding=10, borderwidth=5, relief="ridge")
     frame.grid()
@@ -183,58 +176,91 @@ def get_introduction_frame(window):
     next_button.grid(row=8, column=2)
 
     # Callback functions for the widgets
-    next_button["command"] = lambda: window.quit()
+    next_button["command"] = lambda: get_game_frame(window, mqtt_sender, frame)
 
     frame.grid()
 
 
-def get_game_frame(window, mqtt_sender):
+def get_game_frame(window, mqtt_sender, prev_frame):
     # Construct the frame to return:
+    prev_frame.destroy()
     frame = ttk.Frame(window, padding=10, borderwidth=5, relief="ridge")
     frame.grid()
 
     # Construct the widgets on the frame:
-    frame_label = ttk.Label(frame, text="Welcome to Cooking Assistant 3000!", font='Times 20')
-
-    next_button = ttk.Button(frame, text='NEXT')
+    frame_label = ttk.Label(frame, text="Ingredients", font='Times')
+    quit_button = ttk.Button(frame, text='QUIT')
     v = tkinter.IntVar()
     v.set(1)
-    radiobutton1 = tkinter.Radiobutton(frame, text="Ingredient 1", variable=v, value=1, indicatoron=False)
-    radiobutton2 = tkinter.Radiobutton(frame, text="Ingredient 2", variable=v, value=2, indicatoron=False)
-
-    # tone_picker_upper_button = ttk.Button(frame, text="Pick it up annoyingly")
-    # initial_frequency_label = ttk.Label(frame, text='Initial frequency')
-    # initial_frequency_entry = ttk.Entry(frame, width=8)
-    # rate_label = ttk.Label(frame, text='Rate of increase')
-    # rate_entry = ttk.Entry(frame, width=8)
+    flour_button = tkinter.Radiobutton(frame, text="Flour", variable=v, value=1, indicatoron=False, background='white')
+    water_button = tkinter.Radiobutton(frame, text="Water", variable=v, value=2, indicatoron=False,
+                                       background='light blue')
+    yeast_button = tkinter.Radiobutton(frame, text="Yeast", variable=v, value=3, indicatoron=False,
+                                       background='yellow')
+    space_label1 = tkinter.ttk.Label(frame, text=' ')
+    space_label2 = tkinter.ttk.Label(frame, text=' ')
 
     # Grid the widgets:
     frame_label.grid(row=0, column=1)
-    next_button.grid(row=8, column=2)
-    radiobutton1.grid(row=2)
-    radiobutton2.grid(row=2, column=1)
-
-    # tone_picker_upper_button.grid(row=3, column=1)
-    # initial_frequency_label.grid(row=1, column=0)
-    # initial_frequency_entry.grid(row=2, column=0)
-    # rate_label.grid(row=1, column=2)
-    # rate_entry.grid(row=2, column=2)
+    quit_button.grid(row=4, column=1)
+    flour_button.grid(row=2, column=0)
+    water_button.grid(row=2, column=1)
+    yeast_button.grid(row=2, column=2)
+    space_label1.grid(row=1, column=1)
+    space_label2.grid(row=3, column=1)
 
     # Set the Button callbacks:
-    # tone_picker_upper_button["command"] = lambda: handle_tone_picker_upper(mqtt_sender, initial_frequency_entry,
-    #                                                                        rate_entry)
-    # radiobutton1["command"] = lambda: handle_radiobutton1(mqtt_sender, radiobutton1.get())
-    # radiobutton2["command"] = print('b2 girl')
-    next_button["command"] = lambda: window.quit()
+    flour_button["command"] = lambda: handle_flour(mqtt_sender, 'white')
+    water_button["command"] = lambda: handle_water(mqtt_sender, 'blue')
+    yeast_button["command"] = lambda: handle_yeast(mqtt_sender, 'yellow')
+    quit_button["command"] = lambda: window.quit()
 
     frame.grid()
+
+
+# def get_recipe_frame(window, mqtt_sender, prev_frame):
+#     # Construct the frame to return:
+#     prev_frame.destroy()
+#     frame = ttk.Frame(window, padding=10, borderwidth=5, relief="ridge")
+#     frame.grid()
+#
+#     # Construct the widgets on the frame:
+#     frame_label = ttk.Label(frame, text="Ingredients", font='Times')
+#     quit_button = ttk.Button(frame, text='QUIT')
+#     v = tkinter.IntVar()
+#     v.set(1)
+#     flour_button = tkinter.Radiobutton(frame, text="Flour", variable=v, value=1, indicatoron=False, background='white')
+#     water_button = tkinter.Radiobutton(frame, text="Water", variable=v, value=2, indicatoron=False,
+#                                        background='light blue')
+#     yeast_button = tkinter.Radiobutton(frame, text="Yeast", variable=v, value=3, indicatoron=False,
+#                                        background='yellow')
+#     space_label1 = tkinter.ttk.Label(frame, text=' ')
+#     space_label2 = tkinter.ttk.Label(frame, text=' ')
+#
+#     # Grid the widgets:
+#     frame_label.grid(row=0, column=1)
+#     quit_button.grid(row=4, column=1)
+#     flour_button.grid(row=2, column=0)
+#     water_button.grid(row=2, column=1)
+#     yeast_button.grid(row=2, column=2)
+#     space_label1.grid(row=1, column=1)
+#     space_label2.grid(row=3, column=1)
+#
+#     # Set the Button callbacks:
+#     flour_button["command"] = lambda: handle_flour(mqtt_sender, 'white')
+#     water_button["command"] = lambda: handle_water(mqtt_sender, 'blue')
+#     yeast_button["command"] = lambda: handle_yeast(mqtt_sender, 'yellow')
+#     quit_button["command"] = lambda: window.quit()
+#
+#     frame.grid()
 
 
 ########################################
 # Handlers
 ########################################
-def handle_next_button(window):
-    print('HELLO')
+def handle_flour(mqtt_sender, color):
+    print('Getting flour now')
+    mqtt_sender.send_message("grab_ingredient", [color, other])
 
 
 # -----------------------------------------------------------------------------
