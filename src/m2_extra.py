@@ -95,24 +95,15 @@ def turn_90_degrees_counterclockwise(robot):
 ###############################################
 # Recipe Maker functions
 ###############################################
-def initialize_variables():
-    flour_count = 0
-    water_count = 0
-    yeast_count = 0
-
-    return flour_count, water_count, yeast_count
-
-
-def
 
 
 ###############################################
 # Main function
 ###############################################
 
-def lets_get_this_bread(color, other):
+def lets_get_this_bread(color, bowl):
     robot = rosebot.RoseBot()
-    bowl = Bowl
+    bowl.add_to_the_bowl(color)
     ingredient_distance = determine_ingredient_distance(color)
     robot.sound_system.speak('Coming right up! Just let me calibrate my arm first!')
     robot.arm_and_claw.calibrate_arm()
@@ -120,16 +111,3 @@ def lets_get_this_bread(color, other):
     go_to_floor_color_and_turn(robot, color)
     go_and_place_ingredient_in_bowl(robot, ingredient_distance)
     return_to_origin(robot)
-
-
-class Bowl:
-    def __init__(self):
-        self.flour_count, self.water_count, self.yeast_count = initialize_variables()
-
-    def whats_in_the_bowl(self, color):
-        if color is 'white':
-            self.flour_count = self.flour_count + 1
-        elif color is 'blue':
-            self.water_count = self.water_count + 1
-        elif color is 'yellow':
-            self.yeast_count = self.yeast_count + 1

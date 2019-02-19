@@ -119,6 +119,10 @@ class DelegateThatReceives(object):
         print('Running tone_picker_upper')
         m2.run_test_pick_up_with_tones(int(initial_frequency), int(rate))
 
+    def grab_ingredient(self, color, bowl):
+        print("Going to get your ingredient!")
+        m2.lets_get_this_bread(color, bowl)
+
     # Sam's functions
     def led_picker_upper(self, initial, rate):
         print('Running LED picker-upper')
