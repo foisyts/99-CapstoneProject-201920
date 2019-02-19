@@ -18,7 +18,7 @@ def main():
       2. Communicates via MQTT with the GUI code that runs on the LAPTOP.
     """
     # run_test_pick_up_with_tones(300, 8)
-    real_thing()
+    # real_thing()
 
 
 def real_thing():

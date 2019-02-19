@@ -187,6 +187,7 @@ def get_game_frame(window, mqtt_sender, prev_frame, bowl):
     # Construct the frame to return:
     prev_frame.destroy()
     frame = ttk.Frame(window, padding=10, borderwidth=5, relief="ridge")
+    frame.configure()
     frame.grid()
 
     # Construct the widgets on the frame:
