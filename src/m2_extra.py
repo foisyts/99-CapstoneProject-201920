@@ -91,9 +91,17 @@ def turn_90_degrees_counterclockwise(robot):
     robot.drive_system.stop()
 
 
-###############################################
-# Recipe Maker functions
-###############################################
+def check_if_done(bowl):
+    if bowl.yeast_count == 1 and bowl.flour_count == 1 and bowl.water_count == 1:
+        return 'bread'
+    elif bowl.yeast_count == 0 and bowl.flour_count == 0 and bowl.water_count == 3:
+        return 'water'
+    elif bowl.yeast_count == 1 and bowl.flour_count == 0 and bowl.water_count == 0:
+        return 'fake sugar'
+    elif bowl.yeast_count > 3 or bowl.flour_count > 3 or bowl.water_count > 3:
+        return 'failure'
+    else:
+        return False
 
 
 ###############################################
@@ -114,3 +122,4 @@ def lets_get_this_bread(color, yeast_count, water_count, flour_count):
     go_to_floor_color_and_turn(robot, color)
     go_and_place_ingredient_in_bowl(robot, ingredient_distance)
     return_to_origin(robot)
+    check_if_done(bowl)
