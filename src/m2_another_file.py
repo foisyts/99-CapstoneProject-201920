@@ -29,9 +29,9 @@ class Bowl(object):
         elif self.yeast_count == 1 and self.flour_count == 2 and self.water_count == 0:
             return 'fake sugar'
         elif self.yeast_count > 3 or self.flour_count > 3 or self.water_count > 3:
-            return 'failure'
+            return 'something inedible'
         else:
-            return False
+            return 'nothing'
 
 
 class delegate_on_laptop(object):
