@@ -19,8 +19,20 @@ class Bowl(object):
         elif color is 'Black':
             self.yeast_count = self.yeast_count + 1
 
-# def main(color, yeast_count, water_count, flour_count):
-#     bowl = m2_extra.lets_get_this_bread(color, yeast_count, water_count, flour_count)
-#     value = m2_extra.check_if_done(bowl)
-#     return value
-#
+    def check_if_done(self):
+        if self.yeast_count == 1 and self.flour_count == 1 and self.water_count == 1:
+            return 'bread'
+        elif self.yeast_count == 0 and self.flour_count == 0 and self.water_count == 3:
+            return 'water'
+        elif self.yeast_count == 1 and self.flour_count == 2 and self.water_count == 0:
+            return 'fake sugar'
+        elif self.yeast_count > 3 or self.flour_count > 3 or self.water_count > 3:
+            return 'failure'
+        else:
+            return False
+
+
+class delegate_on_laptop(object):
+    def get_bowl(self, bowl):
+        value = bowl.check_if_done()
+        print("Congrats! You've made", value)

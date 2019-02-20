@@ -126,8 +126,9 @@ import shared_gui
 # Sprint 3 GUI created here
 # ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
 def main():
+    delegate = m2a.delegate_on_laptop()
     bowl = m2a.Bowl()
-    mqtt_sender = com.MqttClient()
+    mqtt_sender = com.MqttClient(delegate)
     mqtt_sender.connect_to_ev3()
     root = tkinter.Tk()
     root.title("Cooking Assistant 3000")

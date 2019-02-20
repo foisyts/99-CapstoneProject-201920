@@ -1,6 +1,7 @@
 import rosebot
 import time
 import m2_another_file as m2a
+import mqtt_remote_method_calls as com
 
 
 def run_test_pick_up_with_tones(initial_frequency, rate):
@@ -100,17 +101,14 @@ def turn_90_degrees_counterclockwise(robot):
     robot.drive_system.stop()
 
 
-def check_if_done(bowl):
-    if bowl.yeast_count == 1 and bowl.flour_count == 1 and bowl.water_count == 1:
-        return 'bread'
-    elif bowl.yeast_count == 0 and bowl.flour_count == 0 and bowl.water_count == 3:
-        return 'water'
-    elif bowl.yeast_count == 1 and bowl.flour_count == 2 and bowl.water_count == 0:
-        return 'fake sugar'
-    elif bowl.yeast_count > 3 or bowl.flour_count > 3 or bowl.water_count > 3:
-        return 'failure'
-    else:
-        return False
+###############################################
+# Other
+###############################################
+
+def return_information(bowl):
+    mqtt_sender = com.MqttClient()
+    mqtt_sender.connect_to_pc()
+    mqtt_sender.send_message("get_bowl", [bowl])
 
 
 ###############################################
@@ -129,5 +127,4 @@ def lets_get_this_bread(color, yeast_count, water_count, flour_count):
     go_to_floor_color_and_turn(robot, color)
     go_and_place_ingredient_in_bowl(robot, ingredient_distance)
     return_to_origin(robot)
-    print(check_if_done(bowl))
-    return bowl
+    return_information(bowl)
