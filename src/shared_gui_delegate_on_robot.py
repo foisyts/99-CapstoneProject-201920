@@ -157,3 +157,4 @@ class DelegateThatReceives(object):
 
     def drive_rainbow(self):
         print("---Rainbow Road---")
+        m1.drive_rainbow()
