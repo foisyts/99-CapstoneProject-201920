@@ -230,11 +230,11 @@ def feature_9_movement(mqtt_sender, initial_entry, rate_of_increase_entry):
 def race_time(window, big_window, radio_observer, mqtt_sender):
     observer = radio_observer
     if observer == 'koopa':
-        print('koopa')
+        create_koopa_track(window, big_window, mqtt_sender)
     elif observer == 'bowser':
         create_bowser_track(window, big_window, mqtt_sender)
     elif observer == 'rainbow':
-        print('rainbow')
+        create_rainbow_track(window, big_window, mqtt_sender)
     else:
         print('Choose a racetrack!')
 
@@ -249,8 +249,57 @@ def create_bowser_track(last_frame, window, mqtt_sender):
     panel_track.image = img_track
 
     bowser_label = ttk.Label(window, text="----Bowser's Castle----", font='Arial 13 bold')
+    go_button = ttk.Button(window, text='GO!')
     bowser_label.grid(row=0, column=0)
     panel_track.grid(row=1, column=0)
+    go_button.grid(row=2, column=0)
+    go_button["command"] = lambda: start_driving('bowser', mqtt_sender)
+
+
+def create_rainbow_track(last_frame, window, mqtt_sender):
+    last_frame.destroy()
+    frame = ttk.Frame(window, padding=10, borderwidth=5, relief="ridge")
+    frame.grid()
+
+    img_track = tkinter.PhotoImage(file='rainbowroad_track.gif')
+    panel_track = ttk.Label(window, image=img_track)
+    panel_track.image = img_track
+
+    rainbow_label = ttk.Label(window, text="----Rainbow Road----", font='Arial 13 bold')
+    go_button = ttk.Button(window, text='GO!')
+    rainbow_label.grid(row=0, column=0)
+    panel_track.grid(row=1, column=0)
+    go_button.grid(row=2, column=0)
+    go_button["command"] = lambda: start_driving('rainbow', mqtt_sender)
+
+
+def create_koopa_track(last_frame, window, mqtt_sender):
+    last_frame.destroy()
+    frame = ttk.Frame(window, padding=10, borderwidth=5, relief="ridge")
+    frame.grid()
+
+    img_track = tkinter.PhotoImage(file='koopatroopa_track.gif')
+    panel_track = ttk.Label(window, image=img_track)
+    panel_track.image = img_track
+
+    koopa_label = ttk.Label(window, text="----Koopa Troopa Beach----")
+    go_button = ttk.Button(window, text='GO!')
+    koopa_label.grid(row=0, column=0)
+    panel_track.grid(row=1, column=0)
+    go_button.grid(row=2, column=0)
+    go_button["command"] = lambda: start_driving('koopa', mqtt_sender)
+
+
+def start_driving(sent_value, mqtt_sender):
+    if sent_value == 'koopa':
+        # print(sent_value)
+        mqtt_sender.send_message("drive_koopa")
+    if sent_value == 'bowser':
+        # print(sent_value)
+        mqtt_sender.send_message("drive_bowser")
+    if sent_value == 'rainbow':
+        # print(sent_value)
+        mqtt_sender.send_message("drive_rainbow")
 
 
 # -----------------------------------------------------------------------------
