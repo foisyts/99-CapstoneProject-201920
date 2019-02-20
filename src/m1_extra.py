@@ -47,12 +47,57 @@ def drive_koopa():
     robot.drive_system.go_straight_for_inches_using_encoder(6, speed)
     robot.drive_system.go(10, speed)
     time.sleep(2.11)
+    robot.drive_system.go(speed * 2, speed)
 
 
 def drive_bowser():
     robot = rosebot.RoseBot()
     speed = 50
+    robot.drive_system.go_straight_for_inches_using_encoder(12, speed)
+    robot.drive_system.go(speed, -speed)
+    time.sleep(0.725)
+    robot.drive_system.go_straight_for_inches_using_encoder(3, speed)
+    robot.drive_system.go(speed, -speed)
+    time.sleep(0.725)
+    robot.drive_system.go_straight_for_inches_using_encoder(8, speed)
+    hard_90_left(robot, speed)
+    robot.drive_system.go_straight_for_inches_using_encoder(5, speed)
+    hard_90_right(robot, speed)
+    robot.drive_system.go_straight_for_inches_using_encoder(7, speed)
+    hard_90_right(robot, speed)
+    robot.drive_system.go_straight_for_inches_using_encoder(5, speed)
+    hard_90_right(robot, speed)
+    robot.drive_system.go_straight_for_inches_using_encoder(3, speed)
+    hard_90_left(robot, speed)
+    robot.drive_system.go_straight_for_inches_using_encoder(5, speed)
+    hard_90_right(robot, speed)
+    robot.drive_system.go_straight_for_inches_using_encoder(5, speed)
+    hard_90_left(robot, speed)
+    robot.drive_system.go_straight_for_inches_using_encoder(3, speed)
+    hard_90_left(robot, speed)
+    robot.drive_system.go_straight_for_inches_using_encoder(5, speed)
+    hard_90_right(robot, speed)
+    robot.drive_system.go_straight_for_inches_using_encoder(10, speed)
+    drive_loop(robot, speed)
+    robot.drive_system.go_straight_for_inches_using_encoder(24, speed)
+    hard_90_right(robot, speed)
+    robot.drive_system.go_straight_for_inches_using_encoder(6, speed)
 
+
+def hard_90_right(robot, speed):
+    robot.drive_system.go(speed, -speed)
+    time.sleep(1.42)
+
+
+def hard_90_left(robot, speed):
+    robot.drive_system.go(-speed, speed)
+    time.sleep(1.42)
+
+
+def drive_loop(robot, speed):
+    robot.drive_system.go(20, 2 * speed)
+    time.sleep(5.08)
+    robot.drive_system.stop()
 
 
 def curved_right(robot, speed):
