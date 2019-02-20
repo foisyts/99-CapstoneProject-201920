@@ -9,7 +9,7 @@ import rosebot
 import mqtt_remote_method_calls as com
 import time
 import shared_gui_delegate_on_robot
-
+import m2_extra as m2
 
 def main():
     """
@@ -18,8 +18,9 @@ def main():
       2. Communicates via MQTT with the GUI code that runs on the LAPTOP.
     """
     # run_test_pick_up_with_tones(300, 8)
-    real_thing()
-
+    # real_thing()
+    # test()
+    turn_test()
 
 def real_thing():
     robot = rosebot.RoseBot()
@@ -48,6 +49,16 @@ def run_test_pick_up_with_tones(initial_frequency, rate):
             break
     robot.drive_system.stop()
     robot.arm_and_claw.raise_arm()
+
+
+def turn_test():
+    robot = rosebot.RoseBot()
+    m2.turn_90_degrees_counterclockwise(robot)
+
+
+def test():
+    p = m2.lets_get_this_bread('green', 0, 0, 0)
+    print(p)
 
 
 # -----------------------------------------------------------------------------

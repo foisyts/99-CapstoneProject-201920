@@ -12,11 +12,11 @@ class Bowl(object):
                                                               self.yeast_count)
 
     def add_to_the_bowl(self, color):
-        if color is 'pink':
+        if color is 'red':
             self.flour_count = self.flour_count + 1
         elif color is 'blue':
             self.water_count = self.water_count + 1
-        elif color is 'yellow':
+        elif color is 'green':
             self.yeast_count = self.yeast_count + 1
 
 # def main(color, yeast_count, water_count, flour_count):

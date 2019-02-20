@@ -195,11 +195,11 @@ def get_game_frame(window, mqtt_sender, prev_frame, bowl):
     quit_button = ttk.Button(frame, text='QUIT')
     v = tkinter.IntVar()
     v.set(1)
-    flour_button = tkinter.Radiobutton(frame, text="Flour", variable=v, value=1, indicatoron=False, background='pink')
+    flour_button = tkinter.Radiobutton(frame, text="Flour", variable=v, value=1, indicatoron=False, background='red')
     water_button = tkinter.Radiobutton(frame, text="Water", variable=v, value=2, indicatoron=False,
                                        background='light blue')
     yeast_button = tkinter.Radiobutton(frame, text="Yeast", variable=v, value=3, indicatoron=False,
-                                       background='yellow')
+                                       background='light green')
     space_label1 = tkinter.ttk.Label(frame, text=' ')
     space_label2 = tkinter.ttk.Label(frame, text=' ')
 
@@ -213,9 +213,9 @@ def get_game_frame(window, mqtt_sender, prev_frame, bowl):
     space_label2.grid(row=3, column=1)
 
     # Set the Button callbacks:
-    flour_button["command"] = lambda: handle_flour(mqtt_sender, 'pink', bowl)
+    flour_button["command"] = lambda: handle_flour(mqtt_sender, 'red', bowl)
     water_button["command"] = lambda: handle_water(mqtt_sender, 'blue', bowl)
-    yeast_button["command"] = lambda: handle_yeast(mqtt_sender, 'yellow', bowl)
+    yeast_button["command"] = lambda: handle_yeast(mqtt_sender, 'green', bowl)
     quit_button["command"] = lambda: window.quit()
 
     frame.grid()

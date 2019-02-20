@@ -74,20 +74,19 @@ def determine_ingredient_distance(color):
     # Determines distance needed for encoder
     #   in go_and_place_ingredient_in_bowl function
     ingredient_distance = 10
-    if color is 'pink':
+    if color is 'red':
         ingredient_distance = 10
-    elif color is 'yellow':
-        ingredient_distance = 20
     elif color is 'blue':
+        ingredient_distance = 20
+    elif color is 'green':
         ingredient_distance = 30
     return ingredient_distance
 
 
 def turn_90_degrees_counterclockwise(robot):
     # Turns the robot by 90 degrees counterclockwise
-    robot.drive_system.go(-30, 30)
-    time.sleep(1)
-    # need to figure out accurate time sleep based on speed given
+    robot.drive_system.go(-50, 50)
+    time.sleep(1.4)
     robot.drive_system.stop()
 
 
@@ -122,4 +121,5 @@ def lets_get_this_bread(color, yeast_count, water_count, flour_count):
     go_to_floor_color_and_turn(robot, color)
     go_and_place_ingredient_in_bowl(robot, ingredient_distance)
     return_to_origin(robot)
-    check_if_done(bowl)
+    print(check_if_done(bowl))
+    return bowl
