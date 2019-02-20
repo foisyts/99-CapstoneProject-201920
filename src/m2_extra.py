@@ -78,11 +78,11 @@ def determine_ingredient_distance(color):
     # Determines distance needed for encoder
     #   in go_and_place_ingredient_in_bowl function
     ingredient_distance = 10
-    if color is 'red':
+    if color is 'Red':
         ingredient_distance = 10
-    elif color is 'blue':
+    elif color is 'Blue':
         ingredient_distance = 20
-    elif color is 'black':
+    elif color is 'White':
         ingredient_distance = 30
     return ingredient_distance
 
