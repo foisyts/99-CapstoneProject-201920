@@ -148,3 +148,12 @@ class DelegateThatReceives(object):
     def beeper_picker_upper(self, initial, rate_of_increase):
         print('Running beeper picker-upper')
         m1.drive_and_beep_with_ir(int(initial), int(rate_of_increase))
+
+    def drive_koopa(self):
+        print("---Koopa Troopa Beach---")
+
+    def drive_bowser(self):
+        print("---Bowser's Castle---")
+
+    def drive_rainbow(self):
+        print("---Rainbow Road---")
