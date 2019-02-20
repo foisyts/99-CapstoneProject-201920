@@ -37,7 +37,7 @@ def go_to_floor_color_and_turn(robot, color):
     #   then turns 90 degrees counterclockwise to position
     #   itself toward the correct pile of ingredients.
     # Sensors: color sensor
-    speed = 70
+    speed = 60
     robot.drive_system.go_straight_until_color_is(color, speed)
     turn_90_degrees_counterclockwise(robot)
 
@@ -78,7 +78,7 @@ def determine_ingredient_distance(color):
         ingredient_distance = 10
     elif color is 'blue':
         ingredient_distance = 20
-    elif color is 'green':
+    elif color is 'black':
         ingredient_distance = 30
     return ingredient_distance
 
@@ -109,7 +109,7 @@ def check_if_done(bowl):
 
 def lets_get_this_bread(color, yeast_count, water_count, flour_count):
     robot = rosebot.RoseBot()
-    bowl = m2a.Bowl
+    bowl = m2a.Bowl()
     bowl.yeast_count = int(yeast_count)
     bowl.water_count = int(water_count)
     bowl.flour_count = int(flour_count)

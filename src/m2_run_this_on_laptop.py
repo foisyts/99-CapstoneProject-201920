@@ -215,7 +215,7 @@ def get_game_frame(window, mqtt_sender, prev_frame, bowl):
     # Set the Button callbacks:
     flour_button["command"] = lambda: handle_flour(mqtt_sender, 'red', bowl)
     water_button["command"] = lambda: handle_water(mqtt_sender, 'blue', bowl)
-    yeast_button["command"] = lambda: handle_yeast(mqtt_sender, 'green', bowl)
+    yeast_button["command"] = lambda: handle_yeast(mqtt_sender, 'balck', bowl)
     quit_button["command"] = lambda: window.quit()
 
     frame.grid()

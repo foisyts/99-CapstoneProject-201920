@@ -19,8 +19,8 @@ def main():
     """
     # run_test_pick_up_with_tones(300, 8)
     # real_thing()
-    # test()
-    turn_test()
+    test()
+    # turn_test()
 
 def real_thing():
     robot = rosebot.RoseBot()
@@ -57,7 +57,7 @@ def turn_test():
 
 
 def test():
-    p = m2.lets_get_this_bread('green', 0, 0, 0)
+    p = m2.lets_get_this_bread('black', 0, 0, 0)
     print(p)
 
 
