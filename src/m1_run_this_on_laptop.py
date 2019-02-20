@@ -22,10 +22,12 @@ def main():
     # -------------------------------------------------------------------------
     # Construct and connect the MQTT Client:
     # -------------------------------------------------------------------------
-    mqtt_sender = com.MqttClient()
+    delegate = delegate_on_laptop()
+    mqtt_sender = com.MqttClient(delegate)
     mqtt_sender.connect_to_ev3()
     sender2 = com.MqttClient()
     sender2.connect_to_ev3()
+
 
     # -------------------------------------------------------------------------
     # The root TK object for the GUI:
@@ -131,20 +133,11 @@ def mario_kart_120_window(window, mqtt_sender):
 
 
 def title_picture(window):
-    # path = r'C:\Users\foisyts\Pictures\Saved Pictures\mario_kart_title.png'
-    # img = ImageTk.PhotoImage(Image.open(path))
-    # title_image = ttk.Label(window, image=img)
     path = 'mario_kart_title.gif'
-
-    # Creates a Tkinter-compatible photo image, which can be used everywhere Tkinter expects an image object.
     img = tkinter.PhotoImage(file=path)
-
-    # The Label widget is a standard Tkinter widget used to display a text or image on the screen.
     panel = ttk.Label(window, image=img)
     panel.image = img
 
-    # The Pack geometry manager packs widgets in rows or columns.
-    # panel.pack(side="bottom", fill="both", expand="yes")
     return panel
 
 
@@ -301,6 +294,10 @@ def start_driving(sent_value, mqtt_sender):
         # print(sent_value)
         mqtt_sender.send_message("drive_rainbow")
 
+
+class delegate_on_laptop(object):
+    def function_name(self):
+        print('a')
 
 # -----------------------------------------------------------------------------
 # Calls  main  to start the ball rolling.

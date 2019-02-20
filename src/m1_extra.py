@@ -22,23 +22,7 @@ def drive_and_beep_with_ir(initial, rate_of_increase):
 def drive_rainbow():
     robot = rosebot.RoseBot()
     speed = 50
-    robot.drive_system.go_straight_for_inches_using_encoder(6, speed)
-    curved_right(robot, speed)
-    robot.drive_system.go_straight_for_inches_using_encoder(15, speed)
-    curved_right(robot, speed)
-    robot.drive_system.go_straight_for_inches_using_encoder(6, speed)
-    curved_right(robot, speed)
-    robot.drive_system.go_straight_for_inches_using_encoder(6, speed)
-    curved_left(robot, speed)
-    robot.drive_system.go_straight_for_inches_using_encoder(4, speed)
-    curved_left(robot, speed)
-    robot.drive_system.go_straight_for_inches_using_encoder(18, speed)
-    curved_right(robot, speed)
-    robot.drive_system.go_straight_for_inches_using_encoder(4, speed)
-    curved_right(robot, speed)
-    robot.drive_system.go_straight_for_inches_using_encoder(30, speed)
-    curved_right(robot, speed)
-    robot.drive_system.go_straight_for_inches_using_encoder(32, speed)
+    rainbow_course(robot, speed)
 
 
 def drive_koopa():
@@ -53,35 +37,35 @@ def drive_koopa():
 def drive_bowser():
     robot = rosebot.RoseBot()
     speed = 50
-    robot.drive_system.go_straight_for_inches_using_encoder(12, speed)
+    my_go_straight_inches(robot, 12, speed)
     robot.drive_system.go(speed, -speed)
     time.sleep(0.725)
-    robot.drive_system.go_straight_for_inches_using_encoder(3, speed)
+    my_go_straight_inches(robot, 3, speed)
     robot.drive_system.go(speed, -speed)
     time.sleep(0.725)
-    robot.drive_system.go_straight_for_inches_using_encoder(8, speed)
+    my_go_straight_inches(robot, 8, speed)
     hard_90_left(robot, speed)
-    robot.drive_system.go_straight_for_inches_using_encoder(5, speed)
+    my_go_straight_inches(robot, 5, speed)
     hard_90_right(robot, speed)
-    robot.drive_system.go_straight_for_inches_using_encoder(7, speed)
+    my_go_straight_inches(robot, 7, speed)
     hard_90_right(robot, speed)
-    robot.drive_system.go_straight_for_inches_using_encoder(5, speed)
+    my_go_straight_inches(robot, 5, speed)
     hard_90_right(robot, speed)
-    robot.drive_system.go_straight_for_inches_using_encoder(3, speed)
+    my_go_straight_inches(robot, 3, speed)
     hard_90_left(robot, speed)
-    robot.drive_system.go_straight_for_inches_using_encoder(5, speed)
+    my_go_straight_inches(robot, 5, speed)
     hard_90_right(robot, speed)
-    robot.drive_system.go_straight_for_inches_using_encoder(5, speed)
+    my_go_straight_inches(robot, 5, speed)
     hard_90_left(robot, speed)
-    robot.drive_system.go_straight_for_inches_using_encoder(3, speed)
+    my_go_straight_inches(robot, 3, speed)
     hard_90_left(robot, speed)
-    robot.drive_system.go_straight_for_inches_using_encoder(5, speed)
+    my_go_straight_inches(robot, 5, speed)
     hard_90_right(robot, speed)
-    robot.drive_system.go_straight_for_inches_using_encoder(10, speed)
+    my_go_straight_inches(robot, 10, speed)
     drive_loop(robot, speed)
-    robot.drive_system.go_straight_for_inches_using_encoder(24, speed)
+    my_go_straight_inches(robot, 24, speed)
     hard_90_right(robot, speed)
-    robot.drive_system.go_straight_for_inches_using_encoder(6, speed)
+    my_go_straight_inches(robot, 6, speed)
 
 
 def hard_90_right(robot, speed):
@@ -108,3 +92,41 @@ def curved_right(robot, speed):
 def curved_left(robot, speed):
     robot.drive_system.go(10, speed)
     time.sleep(4.25)
+
+
+def rainbow_course(robot, speed):
+    my_go_straight_inches(robot, 24, speed)
+    curved_right(robot, speed)
+    my_go_straight_inches(robot, 15, speed)
+    curved_right(robot, speed)
+    my_go_straight_inches(robot, 6, speed)
+    curved_right(robot, speed)
+    my_go_straight_inches(robot, 6, speed)
+    curved_left(robot, speed)
+    my_go_straight_inches(robot, 4, speed)
+    curved_left(robot, speed)
+    my_go_straight_inches(robot, 18, speed)
+    curved_right(robot, speed)
+    my_go_straight_inches(robot, 4, speed)
+    curved_right(robot, speed)
+    my_go_straight_inches(robot, 30, speed)
+    curved_right(robot, speed)
+    my_go_straight_inches(robot, 32, speed)
+    robot.arm_and_claw.lower_arm()
+
+
+def my_go_straight_inches(robot, inches, speed):
+    inches_per_degree = robot.drive_system.left_motor.WheelCircumference / 360
+    desired_degrees = inches / inches_per_degree
+    robot.drive_system.left_motor.reset_position()
+    robot.drive_system.go(speed, speed)
+    while True:
+        angular_position = abs(robot.drive_system.left_motor.get_position())
+        if desired_degrees <= angular_position:
+            robot.drive_system.stop()
+            break
+        if robot.sensor_system.camera.get_biggest_blob().width >= 30:
+            if robot.sensor_system.ir_proximity_sensor.get_distance_in_inches() <= 2:
+                robot.drive_system.stop()
+                robot.arm_and_claw.raise_arm()
+                robot.drive_system.go(speed, speed)
