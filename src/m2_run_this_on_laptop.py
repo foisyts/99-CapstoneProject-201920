@@ -144,41 +144,41 @@ def get_introduction_frame(window, mqtt_sender, bowl):
 
     # Construct the widgets on the frame:
     frame_label = ttk.Label(frame, text="Welcome to Cooking Assistant 3000!", font='Times 20')
-    directions_label0 = ttk.Label(frame,
-                                  text='Directions:')
-    directions_label1 = ttk.Label(frame,
-                                  text='Click the "Next Customer" button to get the next order.')
-    directions_label2 = ttk.Label(frame,
-                                  text='Then, you will see the ingredients you need to have the robot get.')
-    directions_label3 = ttk.Label(frame,
-                                  text='Next, click on the correct ingredient and the robot will get it.')
-    directions_label4 = ttk.Label(frame,
-                                  text='You have 3 minutes to complete the order!')
-    directions_label5 = ttk.Label(frame,
-                                  text='Or else, the customer will get angry and leave your shop!')
-    directions_label6 = ttk.Label(frame,
-                                  text='If you click the wrong ingredient, the robot will tell you so.')
-    directions_label7 = ttk.Label(frame,
-                                  text=' ')
-    directions_label8 = ttk.Label(frame,
-                                  text='...Click NEXT to continue...')
-    next_button = ttk.Button(frame, text='NEXT')
+    l0, l1, l2, l3, l4, l5, l6, l7, l8, next_button = create_intro_labels(frame)
 
     # Grid the widgets:
     frame_label.grid(row=0, column=1)
-    directions_label0.grid(row=1, column=0)
-    directions_label1.grid(row=1, column=1)
-    directions_label2.grid(row=2, column=1)
-    directions_label3.grid(row=3, column=1)
-    directions_label4.grid(row=4, column=1)
-    directions_label5.grid(row=5, column=1)
-    directions_label6.grid(row=6, column=1)
-    directions_label7.grid(row=7, column=1)
-    directions_label8.grid(row=4, column=2)
-    next_button.grid(row=8, column=2)
-
+    grid_intro_widgets()
     # Callback functions for the widgets
     next_button["command"] = lambda: get_game_frame(window, mqtt_sender, frame, bowl)
+
+
+def create_intro_labels(frame):
+    l0 = ttk.Label(frame, text='Directions:')
+    l1 = ttk.Label(frame, text='Click the "Next Customer" button to get the next order.')
+    l2 = ttk.Label(frame, text='Then, you will see the ingredients you need to have the robot get.')
+    l3 = ttk.Label(frame, text='Next, click on the correct ingredient and the robot will get it.')
+    l4 = ttk.Label(frame, text='You have 3 minutes to complete the order!')
+    l5 = ttk.Label(frame, text='Or else, the customer will get angry and leave your shop!')
+    l6 = ttk.Label(frame, text='If you click the wrong ingredient, the robot will tell you so.')
+    l7 = ttk.Label(frame, text=' ')
+    l8 = ttk.Label(frame, text='...Click NEXT to continue...')
+    next_button = ttk.Button(frame, text='NEXT')
+
+    return l0, l1, l2, l3, l4, l5, l6, l7, l8, next_button
+
+
+def grid_intro_widgets(l0, l1, l2, l3, l4, l5, l6, l7, l8, next_button):
+    l0.grid(row=1, column=0)
+    l1.grid(row=1, column=1)
+    l2.grid(row=2, column=1)
+    l3.grid(row=3, column=1)
+    l4.grid(row=4, column=1)
+    l5.grid(row=5, column=1)
+    l6.grid(row=6, column=1)
+    l7.grid(row=7, column=1)
+    l8.grid(row=4, column=2)
+    next_button.grid(row=8, column=2)
 
 
 def get_game_frame(window, mqtt_sender, prev_frame, bowl):
@@ -187,11 +187,22 @@ def get_game_frame(window, mqtt_sender, prev_frame, bowl):
     frame = ttk.Frame(window, padding=10, borderwidth=5, relief="ridge")
     frame.configure()
     frame.grid()
-
     get_recipe_frame(window)
-
     # Construct the widgets on the frame:
     frame_label = ttk.Label(frame, text="Ingredients", font='Times 16')
+    quit_button, flour_button, water_button, yeast_button, space_label1, space_label2 = create_game_stuff(frame)
+    # Grid the widgets:
+    frame_label.grid(row=0, column=1)
+    grid_game_stuff(quit_button, flour_button, water_button, yeast_button, space_label1, space_label2)
+    # Set the Button callbacks:
+    flour_button["command"] = lambda: handle_flour(mqtt_sender, 'Red', bowl)
+    water_button["command"] = lambda: handle_water(mqtt_sender, 'Blue', bowl)
+    yeast_button["command"] = lambda: handle_yeast(mqtt_sender, 'Black', bowl)
+    quit_button["command"] = lambda: window.quit()
+    frame.grid()
+
+
+def create_game_stuff(frame):
     quit_button = ttk.Button(frame, text='QUIT')
     v = tkinter.IntVar()
     v.set(1)
@@ -202,9 +213,10 @@ def get_game_frame(window, mqtt_sender, prev_frame, bowl):
                                        background='light green')
     space_label1 = tkinter.ttk.Label(frame, text=' ')
     space_label2 = tkinter.ttk.Label(frame, text=' ')
+    return quit_button, flour_button, water_button, yeast_button, space_label1, space_label2
 
-    # Grid the widgets:
-    frame_label.grid(row=0, column=1)
+
+def grid_game_stuff(quit_button, flour_button, water_button, yeast_button, space_label1, space_label2):
     quit_button.grid(row=4, column=1)
     flour_button.grid(row=2, column=0)
     water_button.grid(row=2, column=1)
@@ -212,34 +224,36 @@ def get_game_frame(window, mqtt_sender, prev_frame, bowl):
     space_label1.grid(row=1, column=1)
     space_label2.grid(row=3, column=1)
 
-    # Set the Button callbacks:
-    flour_button["command"] = lambda: handle_flour(mqtt_sender, 'Red', bowl)
-    water_button["command"] = lambda: handle_water(mqtt_sender, 'Blue', bowl)
-    yeast_button["command"] = lambda: handle_yeast(mqtt_sender, 'Black', bowl)
-    quit_button["command"] = lambda: window.quit()
-
-    frame.grid()
-
 
 def get_recipe_frame(window):
     # Construct the frame to return:
     frame = ttk.Frame(window, padding=10, borderwidth=5, relief="ridge")
     frame.grid(row=0, column=1)
-
     # Construct the widgets on the frame:
+    frame_label, bread_recipe, bread_1, bread_2, bread_3, water_recipe, water_1, fake_sugar_recipe, sugar_1, sugar_2 = create_recipe_labels(
+        frame)
+    # Grid the widgets:
+    grid_recipe_stuff(frame_label, bread_recipe, bread_1, bread_2, bread_3, water_recipe, water_1, fake_sugar_recipe,
+                      sugar_1, sugar_2)
+    frame.grid()
+
+
+def create_recipe_labels(frame):
     frame_label = ttk.Label(frame, text="Recipes", font='Times 16')
     bread_recipe = ttk.Label(frame, text="Bread", font="Times 11")
     bread_1 = ttk.Label(frame, text='1 Flour')
     bread_2 = ttk.Label(frame, text='1 Water')
     bread_3 = ttk.Label(frame, text='1 Yeast')
-
     water_recipe = ttk.Label(frame, text="Water", font="Times 11")
     water_1 = ttk.Label(frame, text='3 Water')
-
     fake_sugar_recipe = ttk.Label(frame, text="Fake Sugar", font="Times 11")
     sugar_1 = ttk.Label(frame, text='2 Flour')
     sugar_2 = ttk.Label(frame, text='1 Yeast')
-    # Grid the widgets:
+    return frame_label, bread_recipe, bread_1, bread_2, bread_3, water_recipe, water_1, fake_sugar_recipe, sugar_1, sugar_2
+
+
+def grid_recipe_stuff(frame_label, bread_recipe, bread_1, bread_2, bread_3, water_recipe, water_1, fake_sugar_recipe,
+                      sugar_1, sugar_2):
     frame_label.grid(row=0, column=1)
     bread_recipe.grid(row=1, column=0)
     bread_1.grid(row=2, column=0)
@@ -252,8 +266,6 @@ def get_recipe_frame(window):
     fake_sugar_recipe.grid(row=1, column=2)
     sugar_1.grid(row=2, column=2)
     sugar_2.grid(row=3, column=2)
-
-    frame.grid()
 
 
 ########################################

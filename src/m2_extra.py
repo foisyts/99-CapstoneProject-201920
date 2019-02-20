@@ -46,8 +46,8 @@ def go_to_floor_color_and_turn(robot, color):
 def go_and_pick_up_the_ingredient(robot):
     # Goes to pile of ingredients and grabs it
     # Sensors: encoder, touch, IR
-    robot.drive_system.go_until_distance_is_within(0.5, 2, 60)
     robot.arm_and_claw.calibrate_arm()
+    robot.drive_system.go_until_distance_is_within(0.5, 1, 50)
     robot.arm_and_claw.raise_arm()
     robot.drive_system.go_straight_for_inches_using_encoder(7, -30)
     turn_90_degrees_counterclockwise(robot)
@@ -105,7 +105,7 @@ def check_if_done(bowl):
         return 'bread'
     elif bowl.yeast_count == 0 and bowl.flour_count == 0 and bowl.water_count == 3:
         return 'water'
-    elif bowl.yeast_count == 1 and bowl.flour_count == 0 and bowl.water_count == 0:
+    elif bowl.yeast_count == 1 and bowl.flour_count == 2 and bowl.water_count == 0:
         return 'fake sugar'
     elif bowl.yeast_count > 3 or bowl.flour_count > 3 or bowl.water_count > 3:
         return 'failure'
