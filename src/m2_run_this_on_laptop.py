@@ -126,7 +126,7 @@ import shared_gui
 # Sprint 3 GUI created here
 # ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
 def main():
-    bowl = m2a.Bowl
+    bowl = m2a.Bowl()
     mqtt_sender = com.MqttClient()
     mqtt_sender.connect_to_ev3()
     root = tkinter.Tk()
@@ -180,8 +180,6 @@ def get_introduction_frame(window, mqtt_sender, bowl):
     # Callback functions for the widgets
     next_button["command"] = lambda: get_game_frame(window, mqtt_sender, frame, bowl)
 
-    frame.grid()
-
 
 def get_game_frame(window, mqtt_sender, prev_frame, bowl):
     # Construct the frame to return:
@@ -190,8 +188,10 @@ def get_game_frame(window, mqtt_sender, prev_frame, bowl):
     frame.configure()
     frame.grid()
 
+    get_recipe_frame(window)
+
     # Construct the widgets on the frame:
-    frame_label = ttk.Label(frame, text="Ingredients", font='Times')
+    frame_label = ttk.Label(frame, text="Ingredients", font='Times 16')
     quit_button = ttk.Button(frame, text='QUIT')
     v = tkinter.IntVar()
     v.set(1)
@@ -221,41 +221,39 @@ def get_game_frame(window, mqtt_sender, prev_frame, bowl):
     frame.grid()
 
 
-# def get_recipe_frame(window, mqtt_sender, prev_frame):
-#     # Construct the frame to return:
-#     prev_frame.destroy()
-#     frame = ttk.Frame(window, padding=10, borderwidth=5, relief="ridge")
-#     frame.grid()
-#
-#     # Construct the widgets on the frame:
-#     frame_label = ttk.Label(frame, text="Ingredients", font='Times')
-#     quit_button = ttk.Button(frame, text='QUIT')
-#     v = tkinter.IntVar()
-#     v.set(1)
-#     flour_button = tkinter.Radiobutton(frame, text="Flour", variable=v, value=1, indicatoron=False, background='white')
-#     water_button = tkinter.Radiobutton(frame, text="Water", variable=v, value=2, indicatoron=False,
-#                                        background='light blue')
-#     yeast_button = tkinter.Radiobutton(frame, text="Yeast", variable=v, value=3, indicatoron=False,
-#                                        background='yellow')
-#     space_label1 = tkinter.ttk.Label(frame, text=' ')
-#     space_label2 = tkinter.ttk.Label(frame, text=' ')
-#
-#     # Grid the widgets:
-#     frame_label.grid(row=0, column=1)
-#     quit_button.grid(row=4, column=1)
-#     flour_button.grid(row=2, column=0)
-#     water_button.grid(row=2, column=1)
-#     yeast_button.grid(row=2, column=2)
-#     space_label1.grid(row=1, column=1)
-#     space_label2.grid(row=3, column=1)
-#
-#     # Set the Button callbacks:
-#     flour_button["command"] = lambda: handle_flour(mqtt_sender, 'white')
-#     water_button["command"] = lambda: handle_water(mqtt_sender, 'blue')
-#     yeast_button["command"] = lambda: handle_yeast(mqtt_sender, 'yellow')
-#     quit_button["command"] = lambda: window.quit()
-#
-#     frame.grid()
+def get_recipe_frame(window):
+    # Construct the frame to return:
+    frame = ttk.Frame(window, padding=10, borderwidth=5, relief="ridge")
+    frame.grid(row=0, column=1)
+
+    # Construct the widgets on the frame:
+    frame_label = ttk.Label(frame, text="Recipes", font='Times 16')
+    bread_recipe = ttk.Label(frame, text="Bread", font="Times 11")
+    bread_1 = ttk.Label(frame, text='1 Flour')
+    bread_2 = ttk.Label(frame, text='1 Water')
+    bread_3 = ttk.Label(frame, text='1 Yeast')
+
+    water_recipe = ttk.Label(frame, text="Water", font="Times 11")
+    water_1 = ttk.Label(frame, text='3 Water')
+
+    fake_sugar_recipe = ttk.Label(frame, text="Fake Sugar", font="Times 11")
+    sugar_1 = ttk.Label(frame, text='2 Flour')
+    sugar_2 = ttk.Label(frame, text='1 Yeast')
+    # Grid the widgets:
+    frame_label.grid(row=0, column=1)
+    bread_recipe.grid(row=1, column=0)
+    bread_1.grid(row=2, column=0)
+    bread_2.grid(row=3, column=0)
+    bread_3.grid(row=4, column=0)
+
+    water_recipe.grid(row=1, column=1)
+    water_1.grid(row=2, column=1)
+
+    fake_sugar_recipe.grid(row=1, column=2)
+    sugar_1.grid(row=2, column=2)
+    sugar_2.grid(row=3, column=2)
+
+    frame.grid()
 
 
 ########################################
@@ -274,7 +272,6 @@ def handle_water(mqtt_sender, color, bowl):
 def handle_yeast(mqtt_sender, color, bowl):
     print('Getting yeast now')
     mqtt_sender.send_message("grab_ingredient", [color, bowl.yeast_count, bowl.water_count, bowl.flour_count])
-
 
 
 # -----------------------------------------------------------------------------

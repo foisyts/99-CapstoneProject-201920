@@ -1,7 +1,7 @@
 # Tommys file for more stuff
 
 
-class Bowl:
+class Bowl(object):
     def __init__(self):
         self.flour_count = 0
         self.water_count = 0
@@ -18,3 +18,4 @@ class Bowl:
             self.water_count = self.water_count + 1
         elif color is 'yellow':
             self.yeast_count = self.yeast_count + 1
+
