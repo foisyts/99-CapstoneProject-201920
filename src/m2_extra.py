@@ -39,6 +39,7 @@ def go_to_floor_color_and_turn(robot, color):
     # Sensors: color sensor
     speed = 60
     robot.drive_system.go_straight_until_color_is(color, speed)
+    # go_until_color(robot, color)
     turn_90_degrees_counterclockwise(robot)
 
 
@@ -64,6 +65,14 @@ def return_to_origin(robot):
     # Sensors: IR
     robot.drive_system.go_until_distance_is_within(0.1, 4, 70)
     turn_90_degrees_counterclockwise(robot)
+
+
+def go_until_color(robot, color):
+    robot.drive_system.go(60, 60)
+    while True:
+        if robot.sensor_system.color_sensor.get_color_as_name() is color:
+            break
+    robot.stop()
 
 
 ##############################################

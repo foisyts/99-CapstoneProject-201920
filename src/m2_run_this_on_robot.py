@@ -11,6 +11,7 @@ import time
 import shared_gui_delegate_on_robot
 import m2_extra as m2
 
+
 def main():
     """
     This code, which must run on the EV3 ROBOT:
@@ -21,6 +22,7 @@ def main():
     # real_thing()
     test()
     # turn_test()
+
 
 def real_thing():
     robot = rosebot.RoseBot()
@@ -53,11 +55,11 @@ def run_test_pick_up_with_tones(initial_frequency, rate):
 
 def turn_test():
     robot = rosebot.RoseBot()
-    m2.turn_90_degrees_counterclockwise(robot)
+    m2.turn_90_degrees_counterclockwise(robot
 
 
 def test():
-    p = m2.lets_get_this_bread('black', 0, 0, 0)
+    p = m2.lets_get_this_bread('Black', 0, 0, 0)
     print(p)
 
 
