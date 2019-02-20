@@ -47,6 +47,7 @@ def go_and_pick_up_the_ingredient(robot):
     # Goes to pile of ingredients and grabs it
     # Sensors: encoder, touch, IR
     robot.drive_system.go_until_distance_is_within(0.5, 2, 60)
+    robot.arm_and_claw.calibrate_arm()
     robot.arm_and_claw.raise_arm()
     robot.drive_system.go_straight_for_inches_using_encoder(7, -30)
     turn_90_degrees_counterclockwise(robot)
@@ -124,9 +125,7 @@ def lets_get_this_bread(color, yeast_count, water_count, flour_count):
     bowl.flour_count = int(flour_count)
     bowl.add_to_the_bowl(color)
     ingredient_distance = determine_ingredient_distance(color)
-    robot.sound_system.speak('Coming right up! Just let me calibrate my arm first!')
-    robot.arm_and_claw.calibrate_arm()
-    robot.sound_system.speak('All done')
+    robot.sound_system.speak('Coming right up!')
     go_to_floor_color_and_turn(robot, color)
     go_and_place_ingredient_in_bowl(robot, ingredient_distance)
     return_to_origin(robot)

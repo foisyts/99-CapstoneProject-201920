@@ -55,7 +55,7 @@ def run_test_pick_up_with_tones(initial_frequency, rate):
 
 def turn_test():
     robot = rosebot.RoseBot()
-    m2.turn_90_degrees_counterclockwise(robot
+    m2.turn_90_degrees_counterclockwise(robot)
 
 
 def test():

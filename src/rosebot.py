@@ -176,9 +176,6 @@ class DriveSystem(object):
             x = False
         if x is False:
             while True:
-                print(self.sensor_system.color_sensor.get_color_as_name())
-                print(color, type(color), self.sensor_system.color_sensor.get_color_as_name(),
-                      type(self.sensor_system.color_sensor.get_color_as_name()))
                 if self.sensor_system.color_sensor.get_color_as_name() == color:
                     break
         elif x is True:

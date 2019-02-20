@@ -213,9 +213,9 @@ def get_game_frame(window, mqtt_sender, prev_frame, bowl):
     space_label2.grid(row=3, column=1)
 
     # Set the Button callbacks:
-    flour_button["command"] = lambda: handle_flour(mqtt_sender, 'red', bowl)
-    water_button["command"] = lambda: handle_water(mqtt_sender, 'blue', bowl)
-    yeast_button["command"] = lambda: handle_yeast(mqtt_sender, 'balck', bowl)
+    flour_button["command"] = lambda: handle_flour(mqtt_sender, 'Red', bowl)
+    water_button["command"] = lambda: handle_water(mqtt_sender, 'Blue', bowl)
+    yeast_button["command"] = lambda: handle_yeast(mqtt_sender, 'Black', bowl)
     quit_button["command"] = lambda: window.quit()
 
     frame.grid()
@@ -277,4 +277,6 @@ def handle_yeast(mqtt_sender, color, bowl):
 # -----------------------------------------------------------------------------
 # Calls  main  to start the ball rolling.
 # -----------------------------------------------------------------------------
+
+
 main()
