@@ -13,7 +13,6 @@ from tkinter import ttk
 import shared_gui
 
 
-
 def main():
     """
     This code, which must run on a LAPTOP:
@@ -139,9 +138,11 @@ def football_frame(window, mqtt_sender):
 
     return frame
 
+
 def handle_fumble(mqtt_sender):
     print("FUMBLE!")
     mqtt_sender.send_message('fumble')
+
 
 def handle_juke(mqtt_sender):
     print('Get juked!')
