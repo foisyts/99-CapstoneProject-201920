@@ -145,41 +145,37 @@ def get_introduction_frame(window, mqtt_sender, bowl):
 
     # Construct the widgets on the frame:
     frame_label = ttk.Label(frame, text="Welcome to Cooking Assistant 3000!", font='Times 20')
-    l0, l1, l2, l3, l4, l5, l6, l7, l8, next_button = create_intro_labels(frame)
+    l0, l1, l2, l3, l4, l7, l8, next_button = create_intro_labels(frame)
 
     # Grid the widgets:
     frame_label.grid(row=0, column=1)
-    grid_intro_widgets()
+    grid_intro_widgets(l0, l1, l2, l3, l4, l7, l8, next_button)
     # Callback functions for the widgets
     next_button["command"] = lambda: get_game_frame(window, mqtt_sender, frame, bowl)
 
 
 def create_intro_labels(frame):
     l0 = ttk.Label(frame, text='Directions:')
-    l1 = ttk.Label(frame, text='Click the "Next Customer" button to get the next order.')
-    l2 = ttk.Label(frame, text='Then, you will see the ingredients you need to have the robot get.')
+    l1 = ttk.Label(frame, text='Check the "Recipes" frame after you hit NEXT')
+    l2 = ttk.Label(frame, text='There, you will see the ingredients you need to have the robot get.')
     l3 = ttk.Label(frame, text='Next, click on the correct ingredient and the robot will get it.')
-    l4 = ttk.Label(frame, text='You have 3 minutes to complete the order!')
-    l5 = ttk.Label(frame, text='Or else, the customer will get angry and leave your shop!')
-    l6 = ttk.Label(frame, text='If you click the wrong ingredient, the robot will tell you so.')
+    l4 = ttk.Label(frame, text="The laptop will print when you've completed some food")
     l7 = ttk.Label(frame, text=' ')
     l8 = ttk.Label(frame, text='...Click NEXT to continue...')
     next_button = ttk.Button(frame, text='NEXT')
 
-    return l0, l1, l2, l3, l4, l5, l6, l7, l8, next_button
+    return l0, l1, l2, l3, l4, l7, l8, next_button
 
 
-def grid_intro_widgets(l0, l1, l2, l3, l4, l5, l6, l7, l8, next_button):
+def grid_intro_widgets(l0, l1, l2, l3, l4, l7, l8, next_button):
     l0.grid(row=1, column=0)
     l1.grid(row=1, column=1)
     l2.grid(row=2, column=1)
     l3.grid(row=3, column=1)
     l4.grid(row=4, column=1)
-    l5.grid(row=5, column=1)
-    l6.grid(row=6, column=1)
-    l7.grid(row=7, column=1)
+    l7.grid(row=5, column=1)
     l8.grid(row=4, column=2)
-    next_button.grid(row=8, column=2)
+    next_button.grid(row=6, column=2)
 
 
 def get_game_frame(window, mqtt_sender, prev_frame, bowl):

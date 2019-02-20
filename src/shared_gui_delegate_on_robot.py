@@ -14,10 +14,11 @@ import m1_extra as m1
 
 
 class DelegateThatReceives(object):
-    def __init__(self, robot):
+    def __init__(self, robot, r=None):
         """:type robot: rosebot.RoseBot """
         self.robot = robot
         self.is_time_to_stop = False
+        self.r = r
 
     # Teleop
     def forward(self, left_wheel_speed, right_wheel_speed):
@@ -121,7 +122,7 @@ class DelegateThatReceives(object):
 
     def grab_ingredient(self, color, yeast_count, water_count, flour_count):
         print("Going to get your ingredient!")
-        m2.lets_get_this_bread(color, yeast_count, water_count, flour_count)
+        m2.lets_get_this_bread(color, yeast_count, water_count, flour_count, self.r)
 
     # Sam's functions
     def led_picker_upper(self, initial, rate):
@@ -149,16 +150,13 @@ class DelegateThatReceives(object):
         print('Running beeper picker-upper')
         m1.drive_and_beep_with_ir(int(initial), int(rate_of_increase))
 
-
     def drive_koopa(self):
         print("---Koopa Troopa Beach---")
         m1.drive_koopa()
 
-
     def drive_bowser(self):
         print("---Bowser's Castle---")
         m1.drive_bowser()
-
 
     def drive_rainbow(self):
         print("---Rainbow Road---")

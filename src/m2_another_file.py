@@ -12,6 +12,7 @@ class Bowl(object):
                                                               self.yeast_count)
 
     def add_to_the_bowl(self, color):
+        # adds an ingredient to the bowl by mutating the instance variable
         if color is 'Red':
             self.flour_count = self.flour_count + 1
         elif color is 'Blue':
@@ -20,6 +21,7 @@ class Bowl(object):
             self.yeast_count = self.yeast_count + 1
 
     def check_if_done(self):
+        # checks if the user has made something of significance
         if self.yeast_count == 1 and self.flour_count == 1 and self.water_count == 1:
             return 'bread'
         elif self.yeast_count == 0 and self.flour_count == 0 and self.water_count == 3:
@@ -33,6 +35,12 @@ class Bowl(object):
 
 
 class delegate_on_laptop(object):
-    def get_bowl(self, bowl):
+
+    def get_bowl(self, water_count, flour_count, yeast_count):
+        print(water_count, flour_count, yeast_count)
+        bowl = Bowl()
+        bowl.water_count = water_count
+        bowl.yeast_count = yeast_count
+        bowl.flour_count = flour_count
         value = bowl.check_if_done()
         print("Congrats! You've made", value)

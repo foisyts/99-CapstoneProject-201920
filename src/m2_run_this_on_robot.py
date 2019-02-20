@@ -20,8 +20,22 @@ def main():
     """
     # run_test_pick_up_with_tones(300, 8)
     # real_thing()
-    test()
+    # test()
     # turn_test()
+    real_thing1()
+
+
+def real_thing1():
+    robot = rosebot.RoseBot()
+    delegate_that_receives = shared_gui_delegate_on_robot.DelegateThatReceives(robot)
+    mqtt_receiver = com.MqttClient(delegate_that_receives)
+    mqtt_receiver.connect_to_pc()
+    delegate_that_receives.r = mqtt_receiver
+
+    while True:
+        time.sleep(0.01)
+        if delegate_that_receives.is_time_to_stop:
+            break
 
 
 def real_thing():

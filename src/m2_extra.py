@@ -69,13 +69,6 @@ def return_to_origin(robot):
     turn_90_degrees_counterclockwise(robot)
 
 
-def go_until_color(robot, color):
-    robot.drive_system.go(60, 60)
-    while True:
-        if robot.sensor_system.color_sensor.get_color_as_name() is color:
-            break
-    robot.stop()
-
 
 ##############################################
 # Mini-functions used in movement functions
@@ -105,17 +98,18 @@ def turn_90_degrees_counterclockwise(robot):
 # Other
 ###############################################
 
-def return_information(bowl):
-    mqtt_sender = com.MqttClient()
-    mqtt_sender.connect_to_pc()
-    mqtt_sender.send_message("get_bowl", [bowl])
+def return_information(r, bowl):
+    print("sending info back to the laptop now")
+    r.send_message("get_bowl", [bowl.water_count, bowl.flour_count, bowl.yeast_count])
+
 
 
 ###############################################
 # Main function
 ###############################################
 
-def lets_get_this_bread(color, yeast_count, water_count, flour_count):
+def lets_get_this_bread(color, yeast_count, water_count, flour_count, r):
+    # this is the main function that runs the whole movement and checking values
     robot = rosebot.RoseBot()
     bowl = m2a.Bowl()
     bowl.yeast_count = int(yeast_count)
@@ -127,4 +121,4 @@ def lets_get_this_bread(color, yeast_count, water_count, flour_count):
     go_to_floor_color_and_turn(robot, color)
     go_and_place_ingredient_in_bowl(robot, ingredient_distance)
     return_to_origin(robot)
-    return_information(bowl)
+    return_information(r, bowl)
