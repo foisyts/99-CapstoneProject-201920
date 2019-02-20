@@ -41,6 +41,20 @@ def drive_rainbow():
     robot.drive_system.go_straight_for_inches_using_encoder(32, speed)
 
 
+def drive_koopa():
+    robot = rosebot.RoseBot()
+    speed = 50
+    robot.drive_system.go_straight_for_inches_using_encoder(6, speed)
+    robot.drive_system.go(10, speed)
+    time.sleep(2.11)
+
+
+def drive_bowser():
+    robot = rosebot.RoseBot()
+    speed = 50
+
+
+
 def curved_right(robot, speed):
     robot.drive_system.go(speed, 10)
     time.sleep(4.25)
