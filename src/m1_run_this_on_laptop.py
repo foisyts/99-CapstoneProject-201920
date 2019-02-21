@@ -115,6 +115,7 @@ def feature_9_window(window, mqtt_sender):
 
 
 def mario_kart_120_window(window, mqtt_sender):
+    # creates the title window, displaying the name of the project, an image, and a button
     frame = ttk.Frame(window, padding=10, borderwidth=5, relief="ridge")
     frame.grid()
 
@@ -133,6 +134,7 @@ def mario_kart_120_window(window, mqtt_sender):
 
 
 def title_picture(window):
+    # retrieves the picture for the title screen
     path = 'mario_kart_title.gif'
     img = tkinter.PhotoImage(file=path)
     panel = ttk.Label(window, image=img)
@@ -142,6 +144,7 @@ def title_picture(window):
 
 
 def course_selection(last_frame, window, mqtt_sender):
+    # The second frame, this frame prompts the user to choose a course
     last_frame.destroy()
     frame = ttk.Frame(window, padding=10, borderwidth=5, relief="ridge")
     frame.grid()
@@ -156,6 +159,7 @@ def course_selection(last_frame, window, mqtt_sender):
 
 
 def get_course_displays(window):
+    # retrieves imaged for the track select screen
     path_rainbow = 'rainbowroad_display.gif'
     path_koopa = 'koopatroopa_display.gif'
     path_bowser = 'Bowserscastlen64_display.gif'
@@ -172,12 +176,14 @@ def get_course_displays(window):
 
 
 def grid_courses(course1, course2, course3):
+    # grids the course displays on the frame
     course1.grid(row=1, column=0)
     course2.grid(row=1, column=1)
     course3.grid(row=1, column=2)
 
 
 def get_radiobuttons(window, big_window, mqtt_sender):
+    # creates the radiobuttons for the course select sceen
     radio_observer = tkinter.StringVar()
     radio_1 = ttk.Radiobutton(window, value='koopa')
     radio_2 = ttk.Radiobutton(window, value='bowser')
@@ -196,12 +202,14 @@ def get_radiobuttons(window, big_window, mqtt_sender):
 
 
 def grid_radiobuttons(radio_1, radio_2, radio_3):
+    #attaches the radiobuttons to the frame
     radio_1.grid(row=3, column=0)
     radio_2.grid(row=3, column=1)
     radio_3.grid(row=3, column=2)
 
 
 def create_course_labels(window):
+    # creates and grids the labels that show the name of each course
     koopa_label = ttk.Label(window, text='Koopa Troopa Beach')
     bowser_label = ttk.Label(window, text="Bowser's Castle")
     rainbow_label = ttk.Label(window, text='Rainbow Road')
@@ -211,6 +219,7 @@ def create_course_labels(window):
 
 
 def empty_label(window):
+    # creates and grids an empty label for spacing purposes
     empty_label = ttk.Label(window, text='')
     empty_label.grid(row=4, column=1)
 
@@ -221,6 +230,7 @@ def feature_9_movement(mqtt_sender, initial_entry, rate_of_increase_entry):
 
 
 def race_time(window, big_window, radio_observer, mqtt_sender):
+    # a layover function that sends the user to the next frame based on radiobutton input
     observer = radio_observer
     if observer == 'koopa':
         create_koopa_track(window, big_window, mqtt_sender)
@@ -233,6 +243,7 @@ def race_time(window, big_window, radio_observer, mqtt_sender):
 
 
 def create_bowser_track(last_frame, window, mqtt_sender):
+    # gets rid of the last frame and creates a new one with a start button and the bowser racetrack
     last_frame.destroy()
     frame = ttk.Frame(window, padding=10, borderwidth=5, relief="ridge")
     frame.grid()
@@ -250,6 +261,7 @@ def create_bowser_track(last_frame, window, mqtt_sender):
 
 
 def create_rainbow_track(last_frame, window, mqtt_sender):
+    # gets rid of the last frame and creates a new one with a start button and the rainbow racetrack
     last_frame.destroy()
     frame = ttk.Frame(window, padding=10, borderwidth=5, relief="ridge")
     frame.grid()
@@ -267,6 +279,7 @@ def create_rainbow_track(last_frame, window, mqtt_sender):
 
 
 def create_koopa_track(last_frame, window, mqtt_sender):
+    # gets rid of the last frame and creates a new one with a start button and the koopa racetrack
     last_frame.destroy()
     frame = ttk.Frame(window, padding=10, borderwidth=5, relief="ridge")
     frame.grid()
@@ -284,6 +297,7 @@ def create_koopa_track(last_frame, window, mqtt_sender):
 
 
 def start_driving(sent_value, mqtt_sender):
+    # communitcates to the robot which course to drive
     if sent_value == 'koopa':
         # print(sent_value)
         mqtt_sender.send_message("drive_koopa")
@@ -298,6 +312,7 @@ def start_driving(sent_value, mqtt_sender):
 class delegate_on_laptop(object):
     def function_name(self):
         print('a')
+
 
 # -----------------------------------------------------------------------------
 # Calls  main  to start the ball rolling.
