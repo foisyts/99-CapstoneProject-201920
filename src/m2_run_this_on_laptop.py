@@ -125,20 +125,22 @@ import shared_gui
 # ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
 # Sprint 3 GUI created here
 # ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+
+
 def main():
     delegate = m2a.delegate_on_laptop()
-    bowl = m2a.Bowl()
+    # bowl = m2a.Bowl()
     mqtt_sender = com.MqttClient(delegate)
     mqtt_sender.connect_to_ev3()
     root = tkinter.Tk()
     root.title("Cooking Assistant 3000")
     main_frame1 = ttk.Frame(root, padding=10, borderwidth=5, relief="groove")
     main_frame1.grid()
-    get_introduction_frame(main_frame1, mqtt_sender, bowl)
+    get_introduction_frame(main_frame1, mqtt_sender)
     root.mainloop()
 
 
-def get_introduction_frame(window, mqtt_sender, bowl):
+def get_introduction_frame(window, mqtt_sender):
     # Construct the frame to return:
     frame = ttk.Frame(window, padding=10, borderwidth=5, relief="ridge")
     frame.grid()
@@ -151,7 +153,7 @@ def get_introduction_frame(window, mqtt_sender, bowl):
     frame_label.grid(row=0, column=1)
     grid_intro_widgets(l0, l1, l2, l3, l4, l7, l8, next_button)
     # Callback functions for the widgets
-    next_button["command"] = lambda: get_game_frame(window, mqtt_sender, frame, bowl)
+    next_button["command"] = lambda: get_game_frame(window, mqtt_sender, frame)
 
 
 def create_intro_labels(frame):
@@ -178,7 +180,7 @@ def grid_intro_widgets(l0, l1, l2, l3, l4, l7, l8, next_button):
     next_button.grid(row=6, column=2)
 
 
-def get_game_frame(window, mqtt_sender, prev_frame, bowl):
+def get_game_frame(window, mqtt_sender, prev_frame):
     # Construct the frame to return:
     prev_frame.destroy()
     frame = ttk.Frame(window, padding=10, borderwidth=5, relief="ridge")
@@ -192,9 +194,9 @@ def get_game_frame(window, mqtt_sender, prev_frame, bowl):
     frame_label.grid(row=0, column=1)
     grid_game_stuff(quit_button, flour_button, water_button, yeast_button, space_label1, space_label2)
     # Set the Button callbacks:
-    flour_button["command"] = lambda: handle_flour(mqtt_sender, 'Red', bowl)
-    water_button["command"] = lambda: handle_water(mqtt_sender, 'Blue', bowl)
-    yeast_button["command"] = lambda: handle_yeast(mqtt_sender, 'White', bowl)
+    flour_button["command"] = lambda: handle_flour(mqtt_sender, 'Red')
+    water_button["command"] = lambda: handle_water(mqtt_sender, 'Blue')
+    yeast_button["command"] = lambda: handle_yeast(mqtt_sender, 'White')
     quit_button["command"] = lambda: window.quit()
     frame.grid()
 
@@ -268,24 +270,23 @@ def grid_recipe_stuff(frame_label, bread_recipe, bread_1, bread_2, bread_3, wate
 ########################################
 # Handlers
 ########################################
-def handle_flour(mqtt_sender, color, bowl):
+def handle_flour(mqtt_sender, color):
     print('Getting flour now')
-    mqtt_sender.send_message("grab_ingredient", [color, bowl.yeast_count, bowl.water_count, bowl.flour_count])
+    mqtt_sender.send_message("grab_ingredient", [color, 0, 0, 1])
 
 
-def handle_water(mqtt_sender, color, bowl):
+def handle_water(mqtt_sender, color):
     print('Getting water now')
-    mqtt_sender.send_message("grab_ingredient", [color, bowl.yeast_count, bowl.water_count, bowl.flour_count])
+    mqtt_sender.send_message("grab_ingredient", [color, 0, 1, 0])
 
 
-def handle_yeast(mqtt_sender, color, bowl):
+def handle_yeast(mqtt_sender, color):
     print('Getting yeast now')
-    mqtt_sender.send_message("grab_ingredient", [color, bowl.yeast_count, bowl.water_count, bowl.flour_count])
+    mqtt_sender.send_message("grab_ingredient", [color, 1, 0, 0])
 
-
-# -----------------------------------------------------------------------------
-# Calls  main  to start the ball rolling.
-# -----------------------------------------------------------------------------
+    # -----------------------------------------------------------------------------
+    # Calls  main  to start the ball rolling.
+    # -----------------------------------------------------------------------------
 
 
 main()

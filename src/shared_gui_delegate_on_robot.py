@@ -19,6 +19,10 @@ class DelegateThatReceives(object):
         self.robot = robot
         self.is_time_to_stop = False
         self.r = r
+        self.flour_count = 0
+        self.water_count = 0
+        self.yeast_count = 0
+
 
     # Teleop
     def forward(self, left_wheel_speed, right_wheel_speed):
@@ -122,7 +126,10 @@ class DelegateThatReceives(object):
 
     def grab_ingredient(self, color, yeast_count, water_count, flour_count):
         print("Going to get your ingredient!")
-        m2.lets_get_this_bread(color, yeast_count, water_count, flour_count, self.r)
+        self.flour_count = self.flour_count + int(flour_count)
+        self.water_count = self.water_count + int(water_count)
+        self.yeast_count = self.yeast_count + int(yeast_count)
+        m2.lets_get_this_bread(color, self.yeast_count, self.water_count, self.flour_count, self.r)
 
     # Sam's functions
     def led_picker_upper(self, initial, rate):

@@ -59,15 +59,16 @@ def go_and_place_ingredient_in_bowl(robot, ingredient_distance):
     # Sensors: encoder
     robot.drive_system.go_straight_for_inches_using_encoder(ingredient_distance, 50)
     robot.arm_and_claw.lower_arm()
+    robot.drive_system.go_straight_for_inches_using_encoder(3, -30)
     turn_90_degrees_counterclockwise(robot)
 
 
 def return_to_origin(robot):
     # Returns the robot to the original starting spot
-    # Sensors: IR
-    robot.drive_system.go_until_distance_is_within(0.1, 4, 70)
+    # Sensors: encoder
+    robot.drive_system.go_straight_for_inches_using_encoder(10, 50)
     turn_90_degrees_counterclockwise(robot)
-
+    robot.drive_system.go_straight_for_inches_using_encoder(3, -30)
 
 
 ##############################################
@@ -78,19 +79,19 @@ def determine_ingredient_distance(color):
     # Determines distance needed for encoder
     #   in go_and_place_ingredient_in_bowl function
     ingredient_distance = 5
-    if color is 'Red':
-        ingredient_distance = 5
-    elif color is 'Blue':
+    if color == 'Red':
         ingredient_distance = 10
-    elif color is 'White':
+    elif color == 'Blue':
         ingredient_distance = 15
+    elif color == 'White':
+        ingredient_distance = 20
     return ingredient_distance
 
 
 def turn_90_degrees_counterclockwise(robot):
     # Turns the robot by 90 degrees counterclockwise
     robot.drive_system.go(-50, 50)
-    time.sleep(1.45)
+    time.sleep(1.6)
     robot.drive_system.stop()
 
 
@@ -101,7 +102,6 @@ def turn_90_degrees_counterclockwise(robot):
 def return_information(r, bowl):
     print("sending info back to the laptop now")
     r.send_message("get_bowl", [bowl.water_count, bowl.flour_count, bowl.yeast_count])
-
 
 
 ###############################################
